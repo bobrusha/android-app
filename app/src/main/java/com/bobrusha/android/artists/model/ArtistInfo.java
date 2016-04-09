@@ -37,4 +37,8 @@ public class ArtistInfo {
                 ", cover=" + cover +
                 '}';
     }
+
+    public String getName() {
+        return name;
+    }
 }
