@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.bobrusha.android.artists.R;
 import com.bobrusha.android.artists.model.ArtistInfo;
+import com.squareup.picasso.Picasso;
 
 import java.lang.reflect.Array;
 
@@ -23,6 +24,7 @@ public class ArtistPreviewViewHolder extends RecyclerView.ViewHolder {
         super(itemView);
         mArtistNameView = (TextView) itemView.findViewById(R.id.preview_artist_name);
         mGenreTextView = (TextView) itemView.findViewById(R.id.preview_artist_genre);
+        mImageView = (ImageView) itemView.findViewById(R.id.preview_artist_img);
 
     }
 
@@ -30,5 +32,8 @@ public class ArtistPreviewViewHolder extends RecyclerView.ViewHolder {
         mArtistNameView.setText(artistInfo.getName());
         String genres = TextUtils.join(", ", artistInfo.getGenres());
         mGenreTextView.setText(genres);
+        Picasso.with(mImageView.getContext())
+                .load(artistInfo.getCover().getSmall())
+                .into(mImageView);
     }
 }

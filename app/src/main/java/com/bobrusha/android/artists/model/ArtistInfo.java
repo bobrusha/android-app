@@ -17,13 +17,22 @@ public class ArtistInfo {
     public ArtistInfo() {
     }
 
-    private class Cover{
+    public class Cover{
         private String small;
         private String big;
 
         public Cover() {
         }
+
+        public String getSmall() {
+            return small;
+        }
+
+        public String getBig() {
+            return big;
+        }
     }
+
 
     @Override
     public String toString() {
@@ -44,5 +53,9 @@ public class ArtistInfo {
 
     public List<String> getGenres() {
         return genres;
+    }
+
+    public Cover getCover() {
+        return cover;
     }
 }
