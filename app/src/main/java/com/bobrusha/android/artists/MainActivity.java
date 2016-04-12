@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //TODO: change 0 to smthg
         getSupportLoaderManager().initLoader(0, null, this);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view_artists);

@@ -41,4 +41,8 @@ public class ArtistInfo {
     public String getName() {
         return name;
     }
+
+    public List<String> getGenres() {
+        return genres;
+    }
 }
