@@ -9,6 +9,7 @@ public class ArtistInfo {
     private long id;
     private String name;
     private List<String> genres;
+    private long tracks;
     private long albums;
     private String link;
     private String description;
@@ -57,5 +58,9 @@ public class ArtistInfo {
 
     public Cover getCover() {
         return cover;
+    }
+
+    public long getAlbums() {
+        return albums;
     }
 }

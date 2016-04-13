@@ -24,4 +24,13 @@
         android:layout_below="@id/preview_artist_name"
         android:layout_toRightOf="@id/preview_artist_img"/>
 
+    <TextView
+        android:id="@+id/preview_artist_albums"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/preview_artist_genre"
+        android:layout_toRightOf="@id/preview_artist_img"/>
+
+
+
 </RelativeLayout>

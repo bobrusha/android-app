@@ -18,12 +18,14 @@ import java.lang.reflect.Array;
 public class ArtistPreviewViewHolder extends RecyclerView.ViewHolder {
     private TextView mArtistNameView;
     private TextView mGenreTextView;
+    private TextView mAlbumsTextView;
     private ImageView mImageView;
 
     public ArtistPreviewViewHolder(View itemView) {
         super(itemView);
         mArtistNameView = (TextView) itemView.findViewById(R.id.preview_artist_name);
         mGenreTextView = (TextView) itemView.findViewById(R.id.preview_artist_genre);
+        mAlbumsTextView = (TextView) itemView.findViewById(R.id.preview_artist_albums);
         mImageView = (ImageView) itemView.findViewById(R.id.preview_artist_img);
 
     }
