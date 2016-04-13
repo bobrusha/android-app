@@ -1,5 +1,6 @@
 package com.bobrusha.android.artists;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
@@ -8,7 +9,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.bobrusha.android.artists.adapter.AtristPreviewAdapter;
+import com.bobrusha.android.artists.event.ArtistPreviewOnClickEvent;
 import com.bobrusha.android.artists.model.ArtistInfo;
+import com.squareup.otto.Subscribe;
 
 import java.util.List;
 
@@ -47,4 +50,21 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        BusProvider.getInstance().register(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        BusProvider.getInstance().unregister(this);
+    }
+
+    @Subscribe
+    public void onArtistSelected(ArtistPreviewOnClickEvent event) {
+        Intent intent = new Intent(this, ArtistInfoActivity.class);
+        startActivity(intent);
+    }
 }
