@@ -2,13 +2,15 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:padding="@dimen/artist_preview_item_padding">
 
     <ImageView
         android:id="@+id/preview_artist_img"
         android:layout_width="@dimen/image_view_artist_img_width"
         android:layout_height="@dimen/image_view_artist_img_height"
         android:contentDescription="qq"
+        android:layout_marginRight="@dimen/artist_img_right_margin"
         />
 
     <TextView
@@ -30,7 +32,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/preview_artist_genre"
         android:layout_toRightOf="@id/preview_artist_img"/>
-
 
 
 </RelativeLayout>
