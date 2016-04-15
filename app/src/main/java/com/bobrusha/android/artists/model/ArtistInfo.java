@@ -63,4 +63,8 @@ public class ArtistInfo {
     public long getAlbums() {
         return albums;
     }
+
+    public long getTracks() {
+        return tracks;
+    }
 }
