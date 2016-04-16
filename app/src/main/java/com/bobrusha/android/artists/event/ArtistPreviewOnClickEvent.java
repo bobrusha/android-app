@@ -8,6 +8,10 @@ import com.bobrusha.android.artists.model.ArtistInfo;
 public class ArtistPreviewOnClickEvent {
     private ArtistInfo mArtistInfo;
 
+    public ArtistPreviewOnClickEvent(ArtistInfo artistInfo) {
+        mArtistInfo = artistInfo;
+    }
+
     public ArtistInfo getArtistInfo() {
         return mArtistInfo;
     }

@@ -19,7 +19,7 @@ import okhttp3.ResponseBody;
 /**
  * Created by Aleksandra on 04.04.16.
  */
-public class ArtistInfoGetter extends AsyncTaskLoader<List<ArtistInfo>> {
+public class ArtistInfoLoader extends AsyncTaskLoader<List<ArtistInfo>> {
     public static final String URL = "http://cache-default04f.cdn.yandex.net/download.cdn.yandex.net/mobilization-2016/artists.json";
     private OkHttpClient client = new OkHttpClient();
     private Gson mGson = new Gson();
@@ -28,7 +28,7 @@ public class ArtistInfoGetter extends AsyncTaskLoader<List<ArtistInfo>> {
     };
 
 
-    public ArtistInfoGetter(Context context) {
+    public ArtistInfoLoader(Context context) {
         super(context);
     }
 
@@ -51,7 +51,7 @@ public class ArtistInfoGetter extends AsyncTaskLoader<List<ArtistInfo>> {
             ResponseBody responseBody = response.body();
             List<ArtistInfo> artistInfoList = mGson.fromJson(responseBody.charStream(), artists.getType());
             responseBody.close();
-            for (ArtistInfo a: artistInfoList) {
+            for (ArtistInfo a : artistInfoList) {
                 Log.v(ArtistInfo.class.getName(), a.toString());
             }
             return artistInfoList;

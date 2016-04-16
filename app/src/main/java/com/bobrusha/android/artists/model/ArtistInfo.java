@@ -18,7 +18,7 @@ public class ArtistInfo {
     public ArtistInfo() {
     }
 
-    public class Cover{
+    public class Cover {
         private String small;
         private String big;
 

@@ -18,6 +18,9 @@ import com.squareup.picasso.Picasso;
  */
 public class ArtistPreviewViewHolder extends RecyclerView.ViewHolder {
     private Context context;
+
+    //private View mItemView;//TODO: Do I need this?
+
     private TextView mArtistNameView;
     private TextView mGenreTextView;
     private TextView mAlbumsTextView;
@@ -30,16 +33,9 @@ public class ArtistPreviewViewHolder extends RecyclerView.ViewHolder {
         mGenreTextView = (TextView) itemView.findViewById(R.id.preview_artist_genre);
         mAlbumsTextView = (TextView) itemView.findViewById(R.id.preview_artist_albums);
         mImageView = (ImageView) itemView.findViewById(R.id.preview_artist_img);
-        itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                BusProvider.getInstance().post(new ArtistPreviewOnClickEvent());
-            }
-        });
-
     }
 
-    public void bind(ArtistInfo artistInfo) {
+    public void bind(final ArtistInfo artistInfo) {
         mArtistNameView.setText(artistInfo.getName());
 
         String genres = TextUtils.join(", ", artistInfo.getGenres());
@@ -51,5 +47,12 @@ public class ArtistPreviewViewHolder extends RecyclerView.ViewHolder {
         Picasso.with(mImageView.getContext())
                 .load(artistInfo.getCover().getSmall())
                 .into(mImageView);
+
+        itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                BusProvider.getInstance().post(new ArtistPreviewOnClickEvent(artistInfo));
+            }
+        });
     }
 }
