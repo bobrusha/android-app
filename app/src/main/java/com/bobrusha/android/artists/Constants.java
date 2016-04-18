@@ -5,6 +5,5 @@ package com.bobrusha.android.artists;
  */
 public interface Constants {
     String EXTRA_ARTIST_NAME = "artist_name";
-    String EXTRA_GENRE = "genre";
-    String EXTRA_BIG_IMG = "big_img";
+
 }

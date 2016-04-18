@@ -7,6 +7,7 @@ import android.util.DisplayMetrics;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bobrusha.android.artists.model.ArtistInfo;
 import com.squareup.picasso.Picasso;
 
 public class ArtistDetailActivity extends AppCompatActivity {
@@ -21,17 +22,21 @@ public class ArtistDetailActivity extends AppCompatActivity {
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         Intent intent = getIntent();
+        ArtistInfo artistInfo = intent.getParcelableExtra(Constants.EXTRA_ARTIST_NAME);
 
         ImageView imageView = (ImageView) findViewById(R.id.artist_detail_big_img);
         DisplayMetrics displaymetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
         Picasso.with(imageView.getContext())
-                .load(intent.getStringExtra(Constants.EXTRA_BIG_IMG))
+                .load(artistInfo.getCover().getBig())
                 .resize( displaymetrics.widthPixels, displaymetrics.widthPixels * 23 / 36)
                 .centerCrop()
                 .into(imageView);
 
         TextView genreTextView = (TextView) findViewById(R.id.artist_detail_genre_text);
-        genreTextView.setText(intent.getStringExtra(Constants.EXTRA_GENRE));
+        genreTextView.setText(artistInfo.getGenres().toString());
+
+        TextView textOfBiographyTextView = (TextView) findViewById(R.id.artist_detail_biography_text);
+        textOfBiographyTextView.setText(artistInfo.getDescription());
     }
 }

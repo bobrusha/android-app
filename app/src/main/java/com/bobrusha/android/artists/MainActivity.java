@@ -66,9 +66,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     public void onArtistSelected(ArtistPreviewOnClickEvent event) {
         Intent intent = new Intent(this, ArtistDetailActivity.class);
         ArtistInfo artistInfo = event.getArtistInfo();
-        intent.putExtra(Constants.EXTRA_BIG_IMG, artistInfo.getCover().getBig());
-        intent.putExtra(Constants.EXTRA_ARTIST_NAME, artistInfo.getName());
-        intent.putExtra(Constants.EXTRA_GENRE, artistInfo.getGenres().toArray());
+        intent.putExtra(Constants.EXTRA_ARTIST_NAME, artistInfo);
         //TODO: add other fields
         //TODO: send one object instead of many fields?
         startActivity(intent);
