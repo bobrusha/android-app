@@ -18,9 +18,6 @@ import com.squareup.picasso.Picasso;
  */
 public class ArtistPreviewViewHolder extends RecyclerView.ViewHolder {
     private Context context;
-
-    //private View mItemView;//TODO: Do I need this?
-
     private TextView mArtistNameView;
     private TextView mGenreTextView;
     private TextView mAlbumsTextView;
@@ -44,7 +41,7 @@ public class ArtistPreviewViewHolder extends RecyclerView.ViewHolder {
         String pattern = context.getString(R.string.amount_of_albums_and_tracks);
         mAlbumsTextView.setText(String.format(pattern, artistInfo.getAlbums(), artistInfo.getTracks()));
 
-        Picasso.with(mImageView.getContext())
+        Picasso.with(context)
                 .load(artistInfo.getCover().getSmall())
                 .into(mImageView);
 
