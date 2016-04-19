@@ -20,25 +20,34 @@
             android:scaleType="centerCrop"/>
 
         <TextView
+            android:paddingTop="@dimen/artist_deatil_padding"
             android:id="@+id/artist_detail_genre_text"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/artist_deatil_padding"
+            android:paddingRight="@dimen/artist_deatil_padding"/>
 
         <TextView
             android:id="@+id/artist_detail_albums_and_tracks"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/artist_deatil_padding"
+            android:paddingRight="@dimen/artist_deatil_padding"/>
 
         <TextView
             android:id="@+id/artist_detail_biography_header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/artist_deatil_padding"
+            android:paddingRight="@dimen/artist_deatil_padding"
             android:text="@string/artist_detail_biography"/>
 
         <TextView
             android:id="@+id/artist_detail_biography_text"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/artist_deatil_padding"
+            android:paddingRight="@dimen/artist_deatil_padding"/>
 
 
     </LinearLayout>

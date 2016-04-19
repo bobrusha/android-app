@@ -2,5 +2,7 @@
     <string name="app_name">Artists</string>
 
     <string name="amount_of_albums_and_tracks">%1$d альбомов, %2$d песен</string>
+
+    <string name="artist_detail_albums_and_tracks">%1$d альбомов • %2$d песен</string>
     <string name="artist_detail_biography">Биография</string>
 </resources>
