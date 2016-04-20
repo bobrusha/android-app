@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.MenuItem;
 import android.widget.ImageView;
@@ -42,7 +43,7 @@ public class ArtistDetailActivity extends AppCompatActivity {
                 .into(imageView);
 
         TextView genreTextView = (TextView) findViewById(R.id.artist_detail_genre_text);
-        genreTextView.setText(artistInfo.getGenres().toString());
+        genreTextView.setText(TextUtils.join(", ", artistInfo.getGenres()));
 
         TextView albumsAndTracksTextView = (TextView) findViewById(R.id.artist_detail_albums_and_tracks);
         String pattern = getString(R.string.artist_detail_albums_and_tracks);
@@ -58,7 +59,7 @@ public class ArtistDetailActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                NavUtils.navigateUpFromSameTask(this);
+                finish();
                 return true;
         }
         return super.onOptionsItemSelected(item);
