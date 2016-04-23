@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Created by Aleksandra on 01.04.16.
  */
-public class ArtistInfo implements Parcelable{
+public class ArtistInfo implements Parcelable {
     private long id;
     private String name;
     private List<String> genres;
