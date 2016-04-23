@@ -37,8 +37,6 @@ public class ArtistDetailActivity extends AppCompatActivity {
         getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
         Picasso.with(imageView.getContext())
                 .load(artistInfo.getCover().getBig())
-                .resize(displaymetrics.widthPixels, displaymetrics.widthPixels * 23 / 36)
-                .centerCrop()
                 .into(imageView);
 
         TextView genreTextView = (TextView) findViewById(R.id.artist_detail_genre_text);

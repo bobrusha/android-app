@@ -2,7 +2,7 @@
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:background="@android:color/white">
 
     <LinearLayout
@@ -17,7 +17,7 @@
         <ImageView
             android:id="@+id/artist_detail_big_img"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/artist_big_img_height"
             android:scaleType="centerCrop"/>
 
         <TextView
