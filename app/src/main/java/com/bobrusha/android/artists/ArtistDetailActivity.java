@@ -7,10 +7,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bobrusha.android.artists.model.ArtistInfo;
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 public class ArtistDetailActivity extends AppCompatActivity {
@@ -32,12 +34,20 @@ public class ArtistDetailActivity extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
-        ImageView imageView = (ImageView) findViewById(R.id.artist_detail_big_img);
-        DisplayMetrics displaymetrics = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
+        final ImageView imageView = (ImageView) findViewById(R.id.artist_detail_big_img);
         Picasso.with(imageView.getContext())
                 .load(artistInfo.getCover().getBig())
-                .into(imageView);
+                .into(imageView, new Callback() {
+                    @Override
+                    public void onSuccess() {
+                        imageView.setVisibility(View.VISIBLE);
+                    }
+
+                    @Override
+                    public void onError() {
+
+                    }
+                });
 
         TextView genreTextView = (TextView) findViewById(R.id.artist_detail_genre_text);
         genreTextView.setText(TextUtils.join(", ", artistInfo.getGenres()));
