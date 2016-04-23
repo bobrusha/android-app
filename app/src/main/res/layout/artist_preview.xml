@@ -19,7 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/preview_artist_img"
-        android:textAppearance="@android:style/TextAppearance.Medium"
+        android:textAppearance="@style/MyTextAppearance.BigText"
         />
 
     <TextView
@@ -27,7 +27,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/preview_artist_name"
-        android:layout_toRightOf="@id/preview_artist_img"/>
+        android:layout_toRightOf="@id/preview_artist_img"
+        android:textAppearance="@style/MyTextAppearance.SmallDarkText"/>
 
     <TextView
         android:id="@+id/preview_artist_albums"
@@ -35,7 +36,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_below="@id/preview_artist_genre"
-        android:layout_toRightOf="@id/preview_artist_img"/>
+        android:layout_toRightOf="@id/preview_artist_img"
+        android:textAppearance="@style/MyTextAppearance.SmallDarkText"/>
 
 
 </RelativeLayout>

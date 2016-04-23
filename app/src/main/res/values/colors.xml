@@ -4,5 +4,6 @@
     <color name="ya_colorPrimary">#967ad6</color>
     <color name="ya_colorPrimaryDark">#7f67b6</color>
     <color name="ya_light_gray">#f2f2f2</color>
-    <color name="ya_dark_gray">#b3b3b3</color>
+    <color name="ya_medium_gray">#b3b3b3</color>
+    <color name="ya_dark_gray">#999999</color>
 </resources>
