@@ -55,7 +55,7 @@
             android:lineSpacingMultiplier="1.5"
             android:paddingLeft="@dimen/artist_detail_padding"
             android:paddingRight="@dimen/artist_detail_padding"
-            android:paddingTop="@dimen/artist_detail_padding_biograpy"
+            android:paddingTop="@dimen/artist_detail_padding_biography"
             android:textAppearance="@android:style/TextAppearance.Small"
             android:textColor="@android:color/black"/>
     </LinearLayout>
