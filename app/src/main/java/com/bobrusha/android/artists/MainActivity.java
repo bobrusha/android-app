@@ -26,8 +26,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //TODO: change 0 to smthg
-        getSupportLoaderManager().initLoader(0, null, this);
+        getSupportLoaderManager().initLoader(Constants.ARTIST_INFO_LOADER_ID, null, this);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view_artists);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -70,9 +69,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     public void onArtistSelected(ArtistPreviewOnClickEvent event) {
         Intent intent = new Intent(this, ArtistDetailActivity.class);
         ArtistInfo artistInfo = event.getArtistInfo();
-        intent.putExtra(Constants.EXTRA_ARTIST_NAME, artistInfo);
-        //TODO: add other fields
-        //TODO: send one object instead of many fields?
+        intent.putExtra(Constants.EXTRA_ARTIST, artistInfo);
         startActivity(intent);
     }
 }

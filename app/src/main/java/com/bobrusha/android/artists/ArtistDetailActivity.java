@@ -25,7 +25,7 @@ public class ArtistDetailActivity extends AppCompatActivity {
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         Intent intent = getIntent();
-        ArtistInfo artistInfo = intent.getParcelableExtra(Constants.EXTRA_ARTIST_NAME);
+        ArtistInfo artistInfo = intent.getParcelableExtra(Constants.EXTRA_ARTIST);
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setTitle(artistInfo.getName());

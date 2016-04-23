@@ -35,7 +35,6 @@ public class ArtistInfoLoader extends AsyncTaskLoader<List<ArtistInfo>> {
     @Override
     protected void onStartLoading() {
         super.onStartLoading();
-        //TODO: write it more accurate
         forceLoad();
     }
 
@@ -45,7 +44,7 @@ public class ArtistInfoLoader extends AsyncTaskLoader<List<ArtistInfo>> {
                 .url(URL)
                 .build();
 
-        Response response = null;
+        Response response;
         try {
             response = client.newCall(request).execute();
             ResponseBody responseBody = response.body();

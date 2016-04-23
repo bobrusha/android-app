@@ -4,6 +4,10 @@ package com.bobrusha.android.artists;
  * Created by Aleksandra on 17.04.16.
  */
 public interface Constants {
-    String EXTRA_ARTIST_NAME = "artist_name";
+    // Google recommends to use app's package name as a prefix for intent extras
+    String PACKAGE_NAME_PREFIX = "com.bobrusha.android.artists.";
+    String EXTRA_ARTIST = PACKAGE_NAME_PREFIX + "artist";
+
+    int ARTIST_INFO_LOADER_ID = 1;
 
 }
