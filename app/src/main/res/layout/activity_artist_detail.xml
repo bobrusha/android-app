@@ -2,7 +2,8 @@
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@android:color/white">
 
     <LinearLayout
         android:id="@+id/linear_layout"
@@ -10,7 +11,6 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/white"
         android:orientation="vertical"
         tools:context=".ArtistDetailActivity">
 
@@ -58,7 +58,5 @@
             android:paddingTop="@dimen/artist_detail_padding_biograpy"
             android:textAppearance="@android:style/TextAppearance.Small"
             android:textColor="@android:color/black"/>
-
-
     </LinearLayout>
 </ScrollView>
