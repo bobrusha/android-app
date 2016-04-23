@@ -9,6 +9,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.bobrusha.android.artists.adapter.AtristPreviewAdapter;
+import com.bobrusha.android.artists.adapter.DividerItemDecoration;
 import com.bobrusha.android.artists.event.ArtistPreviewOnClickEvent;
 import com.bobrusha.android.artists.model.ArtistInfo;
 import com.squareup.otto.Subscribe;
@@ -19,6 +20,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +34,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
         mAdapter = new AtristPreviewAdapter();
         mRecyclerView.setAdapter(mAdapter);
+
+        mRecyclerView.addItemDecoration(new DividerItemDecoration(this, R.drawable.divider));
     }
 
 

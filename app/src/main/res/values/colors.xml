@@ -3,4 +3,5 @@
     <color name="colorAccent">#FF4081</color>
     <color name="ya_colorPrimary">#967ad6</color>
     <color name="ya_colorPrimaryDark">#7f67b6</color>
+    <color name="ya_gray">#F9F9F9</color>
 </resources>
