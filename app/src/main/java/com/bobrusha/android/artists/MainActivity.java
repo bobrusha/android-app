@@ -36,7 +36,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view_artists);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
