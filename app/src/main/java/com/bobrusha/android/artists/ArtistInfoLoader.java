@@ -29,7 +29,6 @@ public class ArtistInfoLoader extends AsyncTaskLoader<List<ArtistInfo>> {
     private TypeToken<List<ArtistInfo>> artists = new TypeToken<List<ArtistInfo>>() {
     };
 
-
     public ArtistInfoLoader(Context context) {
         super(context);
     }

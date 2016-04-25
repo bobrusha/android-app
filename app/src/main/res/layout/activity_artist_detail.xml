@@ -20,6 +20,7 @@
             android:animateLayoutChanges="true">
 
             <ProgressBar
+                android:id="@+id/progress_bar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -32,6 +33,13 @@
                 android:scaleType="centerCrop"
                 android:visibility="invisible"
                 android:contentDescription="@string/image_description"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id ="@+id/artist_detail_no_image"
+                android:gravity="center"
+                android:visibility="invisible"
+                android:text="@string/artist_detail_fail_to_load_image"/>
         </FrameLayout>
 
         <TextView

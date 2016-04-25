@@ -40,7 +40,8 @@ public class ArtistDetailActivity extends AppCompatActivity {
 
                     @Override
                     public void onError() {
-                        //TODO
+                        findViewById(R.id.artist_detail_no_image).setVisibility(View.VISIBLE);
+                        findViewById(R.id.progress_bar).setVisibility(View.INVISIBLE);
                     }
                 });
 
