@@ -14,6 +14,11 @@ import com.bobrusha.android.artists.model.ArtistInfo;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
+/**
+ * Activity with detailed information about chosen musician.
+ *
+ * @author Aleksandra Bobrova
+ */
 public class ArtistDetailActivity extends AppCompatActivity {
 
     @Override
@@ -40,7 +45,7 @@ public class ArtistDetailActivity extends AppCompatActivity {
 
                     @Override
                     public void onError() {
-                        //Stop progressBar and show text that can't load image
+                        //Stop progressBar and show text
                         findViewById(R.id.progress_bar).setVisibility(View.INVISIBLE);
                         findViewById(R.id.artist_detail_no_image).setVisibility(View.VISIBLE);
 

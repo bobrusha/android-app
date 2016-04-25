@@ -25,7 +25,6 @@ import java.util.List;
  */
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<ArtistInfo>> {
 
-    private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private Snackbar mSnackbar;
@@ -35,13 +34,13 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view_artists);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view_artists);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         mAdapter = new ArtistPreviewAdapter();
-        mRecyclerView.setAdapter(mAdapter);
+        recyclerView.setAdapter(mAdapter);
 
-        mRecyclerView.addItemDecoration(new DividerItemDecoration(this, R.drawable.divider));
+        recyclerView.addItemDecoration(new DividerItemDecoration(this, R.drawable.divider));
 
         mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.refresh_layout);
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -51,7 +50,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 mSwipeRefreshLayout.setRefreshing(false);
             }
         });
-        mSnackbar = Snackbar.make(findViewById(R.id.refresh_layout), R.string.no_data_to_display, Snackbar.LENGTH_INDEFINITE);
+
         getSupportLoaderManager().initLoader(Constants.ARTIST_INFO_LOADER_ID, null, this);
     }
 
@@ -64,10 +63,19 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     public void onLoadFinished(Loader<List<ArtistInfo>> loader, List<ArtistInfo> data) {
         ((ArtistPreviewAdapter) mAdapter).setDataset(data);
         mSwipeRefreshLayout.setRefreshing(false);
+
+        // Show snackBar if no data was loaded
         if (data == null) {
+            if (mSnackbar == null) {
+                mSnackbar = Snackbar.make(findViewById(R.id.refresh_layout),
+                        R.string.no_data_to_display,
+                        Snackbar.LENGTH_INDEFINITE);
+            }
             mSnackbar.show();
         } else {
-            mSnackbar.dismiss();
+            if (mSnackbar != null) {
+                mSnackbar.dismiss();
+            }
         }
     }
 
@@ -88,6 +96,11 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         BusProvider.getInstance().unregister(this);
     }
 
+    /**
+     * Method that calling then user chose musician.
+     *
+     * @param event – event for method invocation using Bus.
+     */
     @Subscribe
     public void onArtistSelected(ArtistPreviewOnClickEvent event) {
         Intent intent = new Intent(this, ArtistDetailActivity.class);
