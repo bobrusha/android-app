@@ -4,9 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.widget.TextView;
 
 import com.bobrusha.android.artists.adapter.AtristPreviewAdapter;
 import com.bobrusha.android.artists.adapter.DividerItemDecoration;
@@ -20,13 +23,15 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
+    private TextView mNoDataAvailable;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        getSupportLoaderManager().initLoader(Constants.ARTIST_INFO_LOADER_ID, null, this);
+
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view_artists);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -35,8 +40,18 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         mRecyclerView.setAdapter(mAdapter);
 
         mRecyclerView.addItemDecoration(new DividerItemDecoration(this, R.drawable.divider));
-    }
 
+        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.refresh_layout);
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getSupportLoaderManager().restartLoader(Constants.ARTIST_INFO_LOADER_ID, null, MainActivity.this);
+                mSwipeRefreshLayout.setRefreshing(false);
+            }
+        });
+
+        getSupportLoaderManager().initLoader(Constants.ARTIST_INFO_LOADER_ID, null, this);
+    }
 
     @Override
     public Loader<List<ArtistInfo>> onCreateLoader(int id, Bundle args) {
