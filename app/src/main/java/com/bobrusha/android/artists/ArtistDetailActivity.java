@@ -40,7 +40,7 @@ public class ArtistDetailActivity extends AppCompatActivity {
 
                     @Override
                     public void onError() {
-
+                        //TODO
                     }
                 });
 

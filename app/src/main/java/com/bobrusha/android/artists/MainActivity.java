@@ -2,13 +2,13 @@ package com.bobrusha.android.artists;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.widget.TextView;
 
 import com.bobrusha.android.artists.adapter.ArtistPreviewAdapter;
 import com.bobrusha.android.artists.adapter.DividerItemDecoration;
@@ -28,8 +28,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private SwipeRefreshLayout mSwipeRefreshLayout;
-    private TextView mNoDataAvailable;
-
+    private Snackbar mSnackbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +51,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 mSwipeRefreshLayout.setRefreshing(false);
             }
         });
-
+        mSnackbar = Snackbar.make(findViewById(R.id.refresh_layout), R.string.no_data_to_display, Snackbar.LENGTH_INDEFINITE);
         getSupportLoaderManager().initLoader(Constants.ARTIST_INFO_LOADER_ID, null, this);
     }
 
@@ -64,6 +63,13 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     @Override
     public void onLoadFinished(Loader<List<ArtistInfo>> loader, List<ArtistInfo> data) {
         ((ArtistPreviewAdapter) mAdapter).setDataset(data);
+
+        if (data == null) {
+            mSnackbar.show();
+        } else {
+            mSnackbar.dismiss();
+        }
+
     }
 
     @Override

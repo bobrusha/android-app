@@ -4,8 +4,11 @@
     <!-- MainActivity-->
     <string name="main_activity_title">Исполнители</string>
     <string name="amount_of_albums_and_tracks">%1$d альбомов, %2$d песен</string>
+    <string name="no_data_to_display">Не удалось загрузить данные с сервера. </string>
 
     <!-- ArtistDetailActivity -->
     <string name="artist_detail_albums_and_tracks">%1$d альбомов • %2$d песен</string>
     <string name="artist_detail_biography">Биография</string>
+
+    <string name="image_description">Изображение </string>
 </resources>

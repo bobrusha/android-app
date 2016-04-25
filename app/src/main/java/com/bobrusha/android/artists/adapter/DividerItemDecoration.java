@@ -14,7 +14,7 @@ import android.view.View;
  * @author Aleksandra Bobrova
  */
 public class DividerItemDecoration extends RecyclerView.ItemDecoration {
-    private Drawable mDivider;
+    private final Drawable mDivider;
 
     public DividerItemDecoration(Context context, int dividerId) {
         mDivider = ContextCompat.getDrawable(context, dividerId);
@@ -39,7 +39,6 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
         int childCount = parent.getChildCount();
         for (int i = 0; i < childCount - 1; i++) {
             View child = parent.getChildAt(i);
-
             RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) child.getLayoutParams();
 
             int dividerTop = child.getBottom() + params.bottomMargin;

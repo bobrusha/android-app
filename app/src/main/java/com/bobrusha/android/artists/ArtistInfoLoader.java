@@ -22,7 +22,7 @@ import okhttp3.ResponseBody;
  * @author Aleksandra Bobrova
  */
 public class ArtistInfoLoader extends AsyncTaskLoader<List<ArtistInfo>> {
-    public static final String URL = "http://cache-default04f.cdn.yandex.net/download.cdn.yandex.net/mobilization-2016/artists.json";
+    private static final String URL = "http://cache-default04f.cdn.yandex.net/download.cdn.yandex.net/mobilization-2016/artists.json";
     private OkHttpClient client = new OkHttpClient();
     private Gson mGson = new Gson();
 

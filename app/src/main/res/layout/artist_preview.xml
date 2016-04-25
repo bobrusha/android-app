@@ -10,14 +10,16 @@
         android:id="@+id/preview_artist_img"
         android:layout_width="@dimen/image_view_artist_img_width"
         android:layout_height="@dimen/image_view_artist_img_height"
+        android:layout_marginEnd="@dimen/artist_img_right_margin"
         android:layout_marginRight="@dimen/artist_img_right_margin"
-        android:contentDescription="qq"
+        android:contentDescription="@string/image_description"
         />
 
     <TextView
         android:id="@+id/preview_artist_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/preview_artist_img"
         android:layout_toRightOf="@id/preview_artist_img"
         android:textAppearance="@style/MyTextAppearance.BigText"
         />
@@ -27,6 +29,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/preview_artist_name"
+        android:layout_toEndOf="@id/preview_artist_img"
         android:layout_toRightOf="@id/preview_artist_img"
         android:textAppearance="@style/MyTextAppearance.SmallDarkText"/>
 
@@ -36,6 +39,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_below="@id/preview_artist_genre"
+        android:layout_toEndOf="@id/preview_artist_img"
         android:layout_toRightOf="@id/preview_artist_img"
         android:textAppearance="@style/MyTextAppearance.SmallDarkText"/>
 

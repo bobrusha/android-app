@@ -18,11 +18,11 @@ import com.squareup.picasso.Picasso;
  * @author Aleksandra Bobrova
  */
 public class ArtistPreviewViewHolder extends RecyclerView.ViewHolder {
-    private Context context;
-    private TextView mArtistNameView;
-    private TextView mGenreTextView;
-    private TextView mAlbumsTextView;
-    private ImageView mImageView;
+    private final Context context;
+    private final TextView mArtistNameView;
+    private final TextView mGenreTextView;
+    private final TextView mAlbumsTextView;
+    private final ImageView mImageView;
 
     public ArtistPreviewViewHolder(View itemView) {
         super(itemView);
