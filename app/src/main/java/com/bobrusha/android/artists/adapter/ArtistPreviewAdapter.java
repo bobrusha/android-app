@@ -11,9 +11,10 @@ import com.bobrusha.android.artists.model.ArtistInfo;
 import java.util.List;
 
 /**
- * Created by Aleksandra on 01.04.16.
+ *
+ * @author Aleksandra Bobrova
  */
-public class AtristPreviewAdapter extends RecyclerView.Adapter<ArtistPreviewViewHolder> {
+public class ArtistPreviewAdapter extends RecyclerView.Adapter<ArtistPreviewViewHolder> {
     private List<ArtistInfo> mDataset;
 
 

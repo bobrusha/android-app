@@ -14,7 +14,8 @@ import com.bobrusha.android.artists.model.ArtistInfo;
 import com.squareup.picasso.Picasso;
 
 /**
- * Created by Aleksandra on 01.04.16.
+ *
+ * @author Aleksandra Bobrova
  */
 public class ArtistPreviewViewHolder extends RecyclerView.ViewHolder {
     private Context context;

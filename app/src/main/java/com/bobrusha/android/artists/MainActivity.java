@@ -8,10 +8,9 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.widget.TextView;
 
-import com.bobrusha.android.artists.adapter.AtristPreviewAdapter;
+import com.bobrusha.android.artists.adapter.ArtistPreviewAdapter;
 import com.bobrusha.android.artists.adapter.DividerItemDecoration;
 import com.bobrusha.android.artists.event.ArtistPreviewOnClickEvent;
 import com.bobrusha.android.artists.model.ArtistInfo;
@@ -19,6 +18,11 @@ import com.squareup.otto.Subscribe;
 
 import java.util.List;
 
+/**
+ * Main Activity for showing list of musicians.
+ *
+ * @author Aleksandra Bobrova
+ */
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<ArtistInfo>> {
 
     private RecyclerView mRecyclerView;
@@ -36,7 +40,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view_artists);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        mAdapter = new AtristPreviewAdapter();
+        mAdapter = new ArtistPreviewAdapter();
         mRecyclerView.setAdapter(mAdapter);
 
         mRecyclerView.addItemDecoration(new DividerItemDecoration(this, R.drawable.divider));
@@ -60,7 +64,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     @Override
     public void onLoadFinished(Loader<List<ArtistInfo>> loader, List<ArtistInfo> data) {
-        ((AtristPreviewAdapter) mAdapter).setDataset(data);
+        ((ArtistPreviewAdapter) mAdapter).setDataset(data);
     }
 
     @Override

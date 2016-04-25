@@ -17,7 +17,9 @@ import okhttp3.Response;
 import okhttp3.ResponseBody;
 
 /**
- * Created by Aleksandra on 04.04.16.
+ * Class for fetching and parsing data about musicians.
+ *
+ * @author Aleksandra Bobrova
  */
 public class ArtistInfoLoader extends AsyncTaskLoader<List<ArtistInfo>> {
     public static final String URL = "http://cache-default04f.cdn.yandex.net/download.cdn.yandex.net/mobilization-2016/artists.json";
@@ -38,6 +40,11 @@ public class ArtistInfoLoader extends AsyncTaskLoader<List<ArtistInfo>> {
         forceLoad();
     }
 
+    /**
+     *
+     * @return list of ArtistInfo instances if data was fetched and parsed successfully, null in other case.
+     * @see ArtistInfo
+     */
     @Override
     public List<ArtistInfo> loadInBackground() {
         Request request = new Request.Builder()

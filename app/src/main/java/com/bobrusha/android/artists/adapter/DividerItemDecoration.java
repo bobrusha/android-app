@@ -9,7 +9,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 /**
- * Created by Aleksandra on 23.04.16.
+ * Class for making dividers between items in RecyclerView.
+ *
+ * @author Aleksandra Bobrova
  */
 public class DividerItemDecoration extends RecyclerView.ItemDecoration {
     private Drawable mDivider;

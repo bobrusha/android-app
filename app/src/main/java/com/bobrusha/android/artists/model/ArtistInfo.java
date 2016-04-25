@@ -6,7 +6,9 @@ import android.os.Parcelable;
 import java.util.List;
 
 /**
- * Created by Aleksandra on 01.04.16.
+ * Model
+ *
+ * @author Aleksandra Bobrova
  */
 public class ArtistInfo implements Parcelable {
     private long id;

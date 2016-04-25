@@ -1,8 +1,10 @@
 package com.bobrusha.android.artists;
 
 /**
- * Created by Aleksandra on 17.04.16.
+ *
+ * @author Aleksandra Bobrova
  */
+
 public interface Constants {
     // Google recommends to use app's package name as a prefix for intent extras
     String PACKAGE_NAME_PREFIX = "com.bobrusha.android.artists.";
