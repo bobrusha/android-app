@@ -10,8 +10,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
-import com.bobrusha.android.artists.adapter.ArtistPreviewAdapter;
-import com.bobrusha.android.artists.adapter.DividerItemDecoration;
+import com.bobrusha.android.artists.recycler_view.ArtistPreviewAdapter;
+import com.bobrusha.android.artists.recycler_view.DividerItemDecoration;
 import com.bobrusha.android.artists.event.ArtistPreviewOnClickEvent;
 import com.bobrusha.android.artists.model.ArtistInfo;
 import com.squareup.otto.Subscribe;
@@ -63,13 +63,12 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     @Override
     public void onLoadFinished(Loader<List<ArtistInfo>> loader, List<ArtistInfo> data) {
         ((ArtistPreviewAdapter) mAdapter).setDataset(data);
-
+        mSwipeRefreshLayout.setRefreshing(false);
         if (data == null) {
             mSnackbar.show();
         } else {
             mSnackbar.dismiss();
         }
-
     }
 
     @Override

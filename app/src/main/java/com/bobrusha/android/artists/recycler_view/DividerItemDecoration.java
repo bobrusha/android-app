@@ -1,4 +1,4 @@
-package com.bobrusha.android.artists.adapter;
+package com.bobrusha.android.artists.recycler_view;
 
 import android.content.Context;
 import android.graphics.Canvas;

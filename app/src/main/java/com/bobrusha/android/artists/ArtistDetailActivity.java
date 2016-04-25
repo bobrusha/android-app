@@ -40,8 +40,10 @@ public class ArtistDetailActivity extends AppCompatActivity {
 
                     @Override
                     public void onError() {
-                        findViewById(R.id.artist_detail_no_image).setVisibility(View.VISIBLE);
+                        //Stop progressBar and show text that can't load image
                         findViewById(R.id.progress_bar).setVisibility(View.INVISIBLE);
+                        findViewById(R.id.artist_detail_no_image).setVisibility(View.VISIBLE);
+
                     }
                 });
 

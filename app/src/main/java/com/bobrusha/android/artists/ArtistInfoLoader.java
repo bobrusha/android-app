@@ -40,7 +40,7 @@ public class ArtistInfoLoader extends AsyncTaskLoader<List<ArtistInfo>> {
     }
 
     /**
-     *
+     * Method for fetching and parsing data about musicians from server.
      * @return list of ArtistInfo instances if data was fetched and parsed successfully, null in other case.
      * @see ArtistInfo
      */
