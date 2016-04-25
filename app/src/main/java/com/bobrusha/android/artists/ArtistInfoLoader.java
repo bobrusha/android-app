@@ -2,7 +2,6 @@ package com.bobrusha.android.artists;
 
 import android.content.Context;
 import android.support.v4.content.AsyncTaskLoader;
-import android.util.Log;
 
 import com.bobrusha.android.artists.model.ArtistInfo;
 import com.google.gson.Gson;
@@ -41,6 +40,7 @@ public class ArtistInfoLoader extends AsyncTaskLoader<List<ArtistInfo>> {
 
     /**
      * Method for fetching and parsing data about musicians from server.
+     *
      * @return list of ArtistInfo instances if data was fetched and parsed successfully, null in other case.
      * @see ArtistInfo
      */
@@ -56,9 +56,6 @@ public class ArtistInfoLoader extends AsyncTaskLoader<List<ArtistInfo>> {
             ResponseBody responseBody = response.body();
             List<ArtistInfo> artistInfoList = mGson.fromJson(responseBody.charStream(), artists.getType());
             responseBody.close();
-            for (ArtistInfo a : artistInfoList) {
-                Log.v(ArtistInfo.class.getName(), a.toString());
-            }
             return artistInfoList;
         } catch (IOException e) {
             e.printStackTrace();
