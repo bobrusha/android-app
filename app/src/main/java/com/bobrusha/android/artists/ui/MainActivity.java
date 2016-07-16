@@ -1,4 +1,4 @@
-package com.bobrusha.android.artists;
+package com.bobrusha.android.artists.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +10,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import com.bobrusha.android.artists.ArtistInfoLoader;
+import com.bobrusha.android.artists.BusProvider;
+import com.bobrusha.android.artists.Constants;
+import com.bobrusha.android.artists.R;
 import com.bobrusha.android.artists.recycler_view.ArtistPreviewAdapter;
 import com.bobrusha.android.artists.recycler_view.DividerItemDecoration;
 import com.bobrusha.android.artists.event.ArtistPreviewOnClickEvent;
@@ -36,7 +40,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view_artists);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
+        
         mAdapter = new ArtistPreviewAdapter();
         recyclerView.setAdapter(mAdapter);
 
