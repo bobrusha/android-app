@@ -16,7 +16,7 @@
 
     <string name="nav_artist_option">Исполнители</string>
     <string name="nav_about_program_option">О программе</string>
-    <string name="nav_feedback_option">Написать разработчикам</string>
+    <string name="nav_settings">Настройки</string>
 
 
     <string name="about_author">Автор приложения: Боброва Александра</string>
