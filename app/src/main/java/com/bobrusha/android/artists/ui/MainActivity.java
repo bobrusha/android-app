@@ -6,6 +6,8 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -29,6 +31,8 @@ import com.squareup.otto.Subscribe;
 public class MainActivity extends AppCompatActivity {
 
     NavigationView mNavigationView;
+    private DrawerLayout mDrawerLayout;
+    private ActionBarDrawerToggle drawerToggle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,17 +51,24 @@ public class MainActivity extends AppCompatActivity {
         mNavigationView = (NavigationView) findViewById(R.id.nvView);
         setupDrawerContent(mNavigationView);
 
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+
+        drawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar,
+                R.string.drawer_open, R.string.drawer_close);
+        mDrawerLayout.addDrawerListener(drawerToggle);
     }
 
     @Override
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
+        drawerToggle.syncState();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         BusProvider.getInstance().register(this);
+
     }
 
     @Override
@@ -65,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
         super.onPause();
         BusProvider.getInstance().unregister(this);
     }
+
 
     /**
      * Method that calling then user chose musician.
@@ -109,17 +121,25 @@ public class MainActivity extends AppCompatActivity {
             case R.id.nav_about_program:
                 fragment = new AboutFragment();
                 break;
-            case R.id.nav_settings:
-                //TODO: add fragment
-                break;
+            //case R.id.nav_settings:
+            //TODO: add fragment
+            //   break;
             default:
                 fragment = new MainFragment();
         }
 
+        mDrawerLayout.closeDrawers();
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.container_for_fragment, fragment).commit();
         menuItem.setChecked(true);
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (drawerToggle.onOptionsItemSelected(item)) {
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 
