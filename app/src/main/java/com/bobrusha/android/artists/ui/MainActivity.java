@@ -109,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
             case R.id.nav_about_program:
                 fragment = new AboutFragment();
                 break;
-            case R.id.nav_feedback:
+            case R.id.nav_settings:
                 //TODO: add fragment
                 break;
             default:
