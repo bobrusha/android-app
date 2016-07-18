@@ -23,7 +23,7 @@ public class AboutFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_settings, container, false);
+        View v = inflater.inflate(R.layout.fragment_about, container, false);
 
         Button button = (Button) v.findViewById(R.id.btn_send_email_to_devs);
         button.setOnClickListener(new View.OnClickListener() {

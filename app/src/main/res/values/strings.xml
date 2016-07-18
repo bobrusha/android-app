@@ -12,4 +12,18 @@
     <string name="artist_detail_fail_to_load_image"> Не удалось загрузить изображение</string>
 
     <string name="image_description">Изображение </string>
+
+
+    <string name="nav_artist_option">Исполнители</string>
+    <string name="nav_about_program_option">О программе</string>
+    <string name="nav_feedback_option">Написать разработчикам</string>
+
+
+    <string name="about_author">Автор приложения: Боброва Александра</string>
+    <string name="write_to_devs">Написать разработчикам</string>
+
+    <!-- Navigation Drawer -->
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+
 </resources>

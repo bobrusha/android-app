@@ -2,6 +2,7 @@ package com.bobrusha.android.artists;
 
 import android.content.Context;
 import android.support.v4.content.AsyncTaskLoader;
+import android.util.Log;
 
 import com.bobrusha.android.artists.model.ArtistInfo;
 import com.google.gson.Gson;
@@ -21,7 +22,7 @@ import okhttp3.ResponseBody;
  * @author Aleksandra Bobrova
  */
 public class ArtistInfoLoader extends AsyncTaskLoader<List<ArtistInfo>> {
-    private static final String URL = "http://cache-default04f.cdn.yandex.net/download.cdn.yandex.net/mobilization-2016/artists.json";
+    private static final String URL = "http://download.cdn.yandex.net/mobilization-2016/artists.json";
     private OkHttpClient client = new OkHttpClient();
     private Gson mGson = new Gson();
 
