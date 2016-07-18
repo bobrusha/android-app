@@ -3,13 +3,12 @@ package com.bobrusha.android.artists.ui.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.bobrusha.android.artists.R;
 
@@ -39,8 +38,6 @@ public class AboutFragment extends Fragment {
 
     public void onSendEmailClick(View v) {
 
-        Log.v(this.getClass().toString(), "q");
-
         Intent i = new Intent(Intent.ACTION_SEND);
         i.setType("message/rfc822");
         i.putExtra(Intent.EXTRA_EMAIL, new String[]{EMAIL_TO});
@@ -48,10 +45,12 @@ public class AboutFragment extends Fragment {
         i.putExtra(Intent.EXTRA_TEXT, "");
 
         try {
-            startActivity(Intent.createChooser(i, "Send mail..."));
+            startActivity(Intent.createChooser(i, getString(R.string.send_email_chooser)));
         } catch (android.content.ActivityNotFoundException ex) {
-            //TODO: delete toast
-            Toast.makeText(getActivity(), "There are no email clients installed.", Toast.LENGTH_SHORT).show();
+            Snackbar snackbar = Snackbar.make(getActivity().findViewById(R.id.refresh_layout),
+                    getString(R.string.no_email_client),
+                    Snackbar.LENGTH_SHORT);
+            snackbar.show();
         }
 
     }

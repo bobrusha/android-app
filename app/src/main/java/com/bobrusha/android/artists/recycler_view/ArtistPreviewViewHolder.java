@@ -14,7 +14,6 @@ import com.bobrusha.android.artists.model.ArtistInfo;
 import com.squareup.picasso.Picasso;
 
 /**
- *
  * @author Aleksandra Bobrova
  */
 public class ArtistPreviewViewHolder extends RecyclerView.ViewHolder {

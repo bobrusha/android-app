@@ -26,4 +26,7 @@
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
 
+    <string name="send_email_chooser">Отправить сообщение</string>
+    <string name="no_email_client">Для отправки сообщения необходимо установить почтовый клиент.</string>
+
 </resources>

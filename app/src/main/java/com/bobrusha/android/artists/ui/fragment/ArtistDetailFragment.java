@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,7 +30,6 @@ public class ArtistDetailFragment extends Fragment {
 
         Bundle args = getArguments();
         artist = args.getParcelable(Constants.EXTRA_ARTIST);
-        Log.v(this.getClass().getName(), artist.toString());
 
     }
 

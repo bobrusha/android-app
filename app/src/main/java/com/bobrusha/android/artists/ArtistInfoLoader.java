@@ -2,7 +2,6 @@ package com.bobrusha.android.artists;
 
 import android.content.Context;
 import android.support.v4.content.AsyncTaskLoader;
-import android.util.Log;
 
 import com.bobrusha.android.artists.model.ArtistInfo;
 import com.google.gson.Gson;

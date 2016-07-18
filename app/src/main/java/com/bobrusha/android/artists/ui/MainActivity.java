@@ -10,7 +10,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 
 import com.bobrusha.android.artists.BusProvider;
@@ -87,8 +86,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Subscribe
     public void onArtistSelected(ArtistPreviewOnClickEvent event) {
-        Log.v(this.getClass().getName(), "In onArtistSelected");
-
         ArtistDetailFragment fragment = new ArtistDetailFragment();
         Bundle args = new Bundle();
         args.putParcelable(Constants.EXTRA_ARTIST, event.getArtistInfo());
@@ -121,9 +118,6 @@ public class MainActivity extends AppCompatActivity {
             case R.id.nav_about_program:
                 fragment = new AboutFragment();
                 break;
-            //case R.id.nav_settings:
-            //TODO: add fragment
-            //   break;
             default:
                 fragment = new MainFragment();
         }
