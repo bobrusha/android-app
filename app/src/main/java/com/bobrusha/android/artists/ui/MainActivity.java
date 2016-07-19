@@ -1,12 +1,17 @@
 package com.bobrusha.android.artists.ui;
 
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.media.AudioManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.DrawableRes;
+import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -37,7 +42,9 @@ import com.squareup.otto.Subscribe;
  */
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
+    private static final String OPEN_IN_MARKET = "market://details?id=";
     private static final String YA_MUSIC_PACKAGE_NAME = "ru.yandex.music";
+    private static final String YA_RADIO_PACKAGE_NAME = "ru.yandex.radio";
 
     private NavigationView mNavigationView;
     private DrawerLayout mDrawerLayout;
@@ -155,7 +162,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private class MusicIntentReceiver extends BroadcastReceiver {
-        @Override public void onReceive(Context context, Intent intent) {
+        @Override
+        public void onReceive(Context context, Intent intent) {
             if (intent.getAction().equals(AudioManager.ACTION_HEADSET_PLUG)) {
                 int state = intent.getIntExtra("state", -1);
                 switch (state) {
@@ -164,12 +172,15 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case 1:
                         Log.d(TAG, "Headset is plugged");
-                        PackageManager manager = context.getPackageManager();
-                        Intent startApp = manager.getLaunchIntentForPackage(YA_MUSIC_PACKAGE_NAME);
-                        if (startApp !=null){
-                            startApp.addCategory(Intent.CATEGORY_LAUNCHER);
-                            context.startActivity(startApp);
-                        }
+
+                        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context);
+                        notificationBuilder.setContentTitle("qq").setContentText("qq").setSmallIcon(R.drawable.ic_earphones);
+
+                        createAction(context, notificationBuilder, YA_MUSIC_PACKAGE_NAME, R.drawable.ic_note, R.drawable.ic_download );
+                        createAction(context, notificationBuilder, YA_RADIO_PACKAGE_NAME, R.drawable.ic_radio, R.drawable.ic_download );
+
+                        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                        notificationManager.notify(1, notificationBuilder.build());
 
                         break;
                     default:
@@ -177,6 +188,23 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         }
+    }
+
+    public void createAction(Context context, NotificationCompat.Builder builder, String packageName,
+                             @DrawableRes int icOpen, @DrawableRes int icDownload) {
+        PackageManager manager = context.getPackageManager();
+        Intent intent = manager.getLaunchIntentForPackage(packageName);
+        if (intent != null) {
+            intent.addCategory(Intent.CATEGORY_LAUNCHER);
+            PendingIntent pi = PendingIntent.getActivity(context, 0, intent, 0);
+            builder.addAction(icOpen, "Open ", pi);
+        } else {
+            PendingIntent pi = PendingIntent.getActivity(context, 0, new Intent(
+                    Intent.ACTION_VIEW, Uri.parse(OPEN_IN_MARKET + packageName)), 0);
+            builder.addAction(icDownload, "Open in market", pi);
+        }
+
+
     }
 
 }
