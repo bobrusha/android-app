@@ -1,5 +1,6 @@
 package com.bobrusha.android.artists.ui;
 
+import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
@@ -11,8 +12,8 @@ import android.media.AudioManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.DrawableRes;
-import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -45,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String OPEN_IN_MARKET = "market://details?id=";
     private static final String YA_MUSIC_PACKAGE_NAME = "ru.yandex.music";
     private static final String YA_RADIO_PACKAGE_NAME = "ru.yandex.radio";
+    private static final int NOTIFICATION_ID = 1;
 
     private NavigationView mNavigationView;
     private DrawerLayout mDrawerLayout;
@@ -166,22 +168,31 @@ public class MainActivity extends AppCompatActivity {
         public void onReceive(Context context, Intent intent) {
             if (intent.getAction().equals(AudioManager.ACTION_HEADSET_PLUG)) {
                 int state = intent.getIntExtra("state", -1);
+
+                NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
                 switch (state) {
                     case 0:
                         Log.d(TAG, "Headset is unplugged");
+                        notificationManager.cancel(NOTIFICATION_ID);
                         break;
                     case 1:
                         Log.d(TAG, "Headset is plugged");
 
                         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context);
-                        notificationBuilder.setContentTitle("qq").setContentText("qq").setSmallIcon(R.drawable.ic_earphones);
+                        notificationBuilder.setContentTitle(getString(R.string.notification_title))
+                                .setContentText(getString(R.string.notification_text))
+                                .setSmallIcon(R.drawable.ic_earphones);
 
-                        createAction(context, notificationBuilder, YA_MUSIC_PACKAGE_NAME, R.drawable.ic_note, R.drawable.ic_download );
-                        createAction(context, notificationBuilder, YA_RADIO_PACKAGE_NAME, R.drawable.ic_radio, R.drawable.ic_download );
+                        createAction(context, notificationBuilder, YA_MUSIC_PACKAGE_NAME,
+                                R.drawable.ic_note, R.drawable.ic_download, R.string.open_ya_music);
+                        createAction(context, notificationBuilder, YA_RADIO_PACKAGE_NAME,
+                                R.drawable.ic_radio, R.drawable.ic_download, R.string.open_ya_radio);
 
-                        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-                        notificationManager.notify(1, notificationBuilder.build());
-
+                        Notification notification =
+                                (new NotificationCompat.BigTextStyle(notificationBuilder)).bigText(
+                                        getString(R.string.notification_text)
+                                ).build();
+                        notificationManager.notify(NOTIFICATION_ID, notification);
                         break;
                     default:
                         Log.d(TAG, "I have no idea what the headset state is");
@@ -191,20 +202,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void createAction(Context context, NotificationCompat.Builder builder, String packageName,
-                             @DrawableRes int icOpen, @DrawableRes int icDownload) {
+                             @DrawableRes int icOpen, @DrawableRes int icDownload, @StringRes int name) {
         PackageManager manager = context.getPackageManager();
         Intent intent = manager.getLaunchIntentForPackage(packageName);
         if (intent != null) {
             intent.addCategory(Intent.CATEGORY_LAUNCHER);
             PendingIntent pi = PendingIntent.getActivity(context, 0, intent, 0);
-            builder.addAction(icOpen, "Open ", pi);
+            builder.addAction(icOpen, getString(name), pi);
         } else {
             PendingIntent pi = PendingIntent.getActivity(context, 0, new Intent(
                     Intent.ACTION_VIEW, Uri.parse(OPEN_IN_MARKET + packageName)), 0);
-            builder.addAction(icDownload, "Open in market", pi);
+            builder.addAction(icDownload, getString(name), pi);
         }
-
-
     }
 
 }

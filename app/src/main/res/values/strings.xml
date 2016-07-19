@@ -29,4 +29,9 @@
     <string name="send_email_chooser">Отправить сообщение</string>
     <string name="no_email_client">Для отправки сообщения необходимо установить почтовый клиент.</string>
 
+    <string name="notification_title">Наушники подключены</string>
+    <string name="notification_text">Выберите приложение для прослушивания музыки</string>
+    <string name="open_ya_music">Яндекс.Музыка </string>
+    <string name="open_ya_radio">Яндекс.Радио</string>
+
 </resources>
