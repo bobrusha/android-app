@@ -23,7 +23,6 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.NotificationCompat;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 
 import com.bobrusha.android.artists.BusProvider;
@@ -172,12 +171,9 @@ public class MainActivity extends AppCompatActivity {
                 NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
                 switch (state) {
                     case 0:
-                        Log.d(TAG, "Headset is unplugged");
                         notificationManager.cancel(NOTIFICATION_ID);
                         break;
                     case 1:
-                        Log.d(TAG, "Headset is plugged");
-
                         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context);
                         notificationBuilder.setContentTitle(getString(R.string.notification_title))
                                 .setContentText(getString(R.string.notification_text))
@@ -194,8 +190,6 @@ public class MainActivity extends AppCompatActivity {
                                 ).build();
                         notificationManager.notify(NOTIFICATION_ID, notification);
                         break;
-                    default:
-                        Log.d(TAG, "I have no idea what the headset state is");
                 }
             }
         }
