@@ -33,5 +33,6 @@
     <string name="notification_text">Выберите приложение для прослушивания музыки</string>
     <string name="open_ya_music">Яндекс.Музыка </string>
     <string name="open_ya_radio">Яндекс.Радио</string>
+    <string name="settings_turn_off_notification">Отключить нотификацию</string>
 
 </resources>

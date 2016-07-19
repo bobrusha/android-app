@@ -32,6 +32,7 @@ import com.bobrusha.android.artists.event.ArtistPreviewOnClickEvent;
 import com.bobrusha.android.artists.ui.fragment.AboutFragment;
 import com.bobrusha.android.artists.ui.fragment.ArtistDetailFragment;
 import com.bobrusha.android.artists.ui.fragment.MainFragment;
+import com.bobrusha.android.artists.ui.fragment.SettingsFragment;
 import com.squareup.otto.Subscribe;
 
 
@@ -140,6 +141,9 @@ public class MainActivity extends AppCompatActivity {
             case R.id.nav_home:
                 fragment = new MainFragment();
                 break;
+            case R.id.nav_settings:
+                fragment = new SettingsFragment();
+                break;
             case R.id.nav_about_program:
                 fragment = new AboutFragment();
                 break;
@@ -208,5 +212,4 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
-
 }
