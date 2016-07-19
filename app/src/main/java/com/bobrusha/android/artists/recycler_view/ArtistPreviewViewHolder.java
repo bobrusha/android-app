@@ -18,32 +18,32 @@ import com.squareup.picasso.Picasso;
  */
 public class ArtistPreviewViewHolder extends RecyclerView.ViewHolder {
     private final Context context;
-    private final TextView mArtistNameView;
-    private final TextView mGenreTextView;
-    private final TextView mAlbumsTextView;
-    private final ImageView mImageView;
+    private final TextView ArtistNameView;
+    private final TextView genreTextView;
+    private final TextView albumsTextView;
+    private final ImageView imageView;
 
     public ArtistPreviewViewHolder(View itemView) {
         super(itemView);
         context = itemView.getContext();
-        mArtistNameView = (TextView) itemView.findViewById(R.id.preview_artist_name);
-        mGenreTextView = (TextView) itemView.findViewById(R.id.preview_artist_genre);
-        mAlbumsTextView = (TextView) itemView.findViewById(R.id.preview_artist_albums);
-        mImageView = (ImageView) itemView.findViewById(R.id.preview_artist_img);
+        ArtistNameView = (TextView) itemView.findViewById(R.id.preview_artist_name);
+        genreTextView = (TextView) itemView.findViewById(R.id.preview_artist_genre);
+        albumsTextView = (TextView) itemView.findViewById(R.id.preview_artist_albums);
+        imageView = (ImageView) itemView.findViewById(R.id.preview_artist_img);
     }
 
     public void bind(final ArtistInfo artistInfo) {
-        mArtistNameView.setText(artistInfo.getName());
+        ArtistNameView.setText(artistInfo.getName());
 
         String genres = TextUtils.join(", ", artistInfo.getGenres());
-        mGenreTextView.setText(genres);
+        genreTextView.setText(genres);
 
         String pattern = context.getString(R.string.amount_of_albums_and_tracks);
-        mAlbumsTextView.setText(String.format(pattern, artistInfo.getAlbums(), artistInfo.getTracks()));
+        albumsTextView.setText(String.format(pattern, artistInfo.getAlbums(), artistInfo.getTracks()));
 
         Picasso.with(context)
                 .load(artistInfo.getCover().getSmall())
-                .into(mImageView);
+                .into(imageView);
 
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override

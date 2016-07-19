@@ -11,11 +11,10 @@ import com.bobrusha.android.artists.model.ArtistInfo;
 import java.util.List;
 
 /**
- *
  * @author Aleksandra Bobrova
  */
 public class ArtistPreviewAdapter extends RecyclerView.Adapter<ArtistPreviewViewHolder> {
-    private List<ArtistInfo> mDataset;
+    private List<ArtistInfo> dataset;
 
 
     @Override
@@ -26,18 +25,18 @@ public class ArtistPreviewAdapter extends RecyclerView.Adapter<ArtistPreviewView
 
     @Override
     public void onBindViewHolder(ArtistPreviewViewHolder holder, int position) {
-        if (position < mDataset.size()) {
-            holder.bind(mDataset.get(position));
+        if (position < dataset.size()) {
+            holder.bind(dataset.get(position));
         }
     }
 
     @Override
     public int getItemCount() {
-        return mDataset == null ? 0 : mDataset.size();
+        return dataset == null ? 0 : dataset.size();
     }
 
     public void setDataset(List<ArtistInfo> dataset) {
-        mDataset = dataset;
+        this.dataset = dataset;
         notifyDataSetChanged();
     }
 }

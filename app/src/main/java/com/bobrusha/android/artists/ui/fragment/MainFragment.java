@@ -24,9 +24,9 @@ import com.bobrusha.android.artists.recycler_view.DividerItemDecoration;
 import java.util.List;
 
 public class MainFragment extends Fragment implements LoaderManager.LoaderCallbacks<List<ArtistInfo>> {
-    private RecyclerView.Adapter mAdapter;
-    private SwipeRefreshLayout mSwipeRefreshLayout;
-    private Snackbar mSnackbar;
+    private RecyclerView.Adapter adapter;
+    private SwipeRefreshLayout swipeRefreshLayout;
+    private Snackbar snackbar;
 
     @Nullable
     @Override
@@ -36,19 +36,19 @@ public class MainFragment extends Fragment implements LoaderManager.LoaderCallba
         RecyclerView recyclerView = (RecyclerView) root.findViewById(R.id.recycler_view_artists);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        mAdapter = new ArtistPreviewAdapter();
-        recyclerView.setAdapter(mAdapter);
+        adapter = new ArtistPreviewAdapter();
+        recyclerView.setAdapter(adapter);
 
         recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), R.drawable.divider));
 
 
-        mSwipeRefreshLayout = (SwipeRefreshLayout) root.findViewById(R.id.refresh_layout);
-        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        swipeRefreshLayout = (SwipeRefreshLayout) root.findViewById(R.id.refresh_layout);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 getActivity().getSupportLoaderManager()
                         .restartLoader(Constants.ARTIST_INFO_LOADER_ID, null, MainFragment.this);
-                mSwipeRefreshLayout.setRefreshing(false);
+                swipeRefreshLayout.setRefreshing(false);
             }
         });
 
@@ -69,24 +69,22 @@ public class MainFragment extends Fragment implements LoaderManager.LoaderCallba
 
     @Override
     public void onLoadFinished(Loader<List<ArtistInfo>> loader, List<ArtistInfo> data) {
-        ((ArtistPreviewAdapter) mAdapter).setDataset(data);
-         mSwipeRefreshLayout.setRefreshing(false);
+        ((ArtistPreviewAdapter) adapter).setDataset(data);
+        swipeRefreshLayout.setRefreshing(false);
 
         // Show snackBar if no data was loaded
-
         if (data == null) {
-            if (mSnackbar == null) {
-                mSnackbar = Snackbar.make(getActivity().findViewById(R.id.refresh_layout),
+            if (snackbar == null) {
+                snackbar = Snackbar.make(getActivity().findViewById(R.id.refresh_layout),
                         R.string.no_data_to_display,
                         Snackbar.LENGTH_INDEFINITE);
             }
-            mSnackbar.show();
+            snackbar.show();
         } else {
-            if (mSnackbar != null) {
-                mSnackbar.dismiss();
+            if (snackbar != null) {
+                snackbar.dismiss();
             }
         }
-
     }
 
     @Override

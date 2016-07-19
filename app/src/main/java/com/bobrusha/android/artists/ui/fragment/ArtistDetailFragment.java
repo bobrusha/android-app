@@ -23,7 +23,6 @@ import com.squareup.picasso.Picasso;
 public class ArtistDetailFragment extends Fragment {
     private ArtistInfo artist;
 
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

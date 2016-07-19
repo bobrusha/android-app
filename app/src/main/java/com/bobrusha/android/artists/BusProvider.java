@@ -3,18 +3,18 @@ package com.bobrusha.android.artists;
 import com.squareup.otto.Bus;
 
 /**
- * Class for providing instance of Bus.
+ * Class for providing INSTANCE of Bus.
  *
  * @author Aleksandra Bobrova
  * @see Bus
  */
 public class BusProvider {
-    private static final Bus mInstance = new Bus();
+    private static final Bus INSTANCE = new Bus();
 
     private BusProvider() {
     }
 
     public static Bus getInstance() {
-        return mInstance;
+        return INSTANCE;
     }
 }

@@ -6,7 +6,7 @@
             android:title="@string/nav_artist_option"/>
         <item
             android:id="@+id/nav_about_program"
-            android:title="@string/nav_about_program_option" />
+            android:title="@string/nav_about_program_option"/>
 
     </group>
 

@@ -1,7 +1,6 @@
 package com.bobrusha.android.artists;
 
 /**
- *
  * @author Aleksandra Bobrova
  */
 

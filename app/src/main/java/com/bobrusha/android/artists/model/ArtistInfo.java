@@ -11,6 +11,17 @@ import java.util.List;
  * @author Aleksandra Bobrova
  */
 public class ArtistInfo implements Parcelable {
+    public static final Creator<ArtistInfo> CREATOR = new Creator<ArtistInfo>() {
+        @Override
+        public ArtistInfo createFromParcel(Parcel in) {
+            return new ArtistInfo(in);
+        }
+
+        @Override
+        public ArtistInfo[] newArray(int size) {
+            return new ArtistInfo[size];
+        }
+    };
     private long id;
     private String name;
     private List<String> genres;
@@ -36,18 +47,6 @@ public class ArtistInfo implements Parcelable {
         cover.small = in.readString();
     }
 
-    public static final Creator<ArtistInfo> CREATOR = new Creator<ArtistInfo>() {
-        @Override
-        public ArtistInfo createFromParcel(Parcel in) {
-            return new ArtistInfo(in);
-        }
-
-        @Override
-        public ArtistInfo[] newArray(int size) {
-            return new ArtistInfo[size];
-        }
-    };
-
     @Override
     public int describeContents() {
         return 0;
@@ -65,23 +64,6 @@ public class ArtistInfo implements Parcelable {
         dest.writeString(cover.big);
         dest.writeString(cover.small);
     }
-
-    public class Cover {
-        private String small;
-        private String big;
-
-        public Cover() {
-        }
-
-        public String getSmall() {
-            return small;
-        }
-
-        public String getBig() {
-            return big;
-        }
-    }
-
 
     @Override
     public String toString() {
@@ -118,5 +100,21 @@ public class ArtistInfo implements Parcelable {
 
     public long getTracks() {
         return tracks;
+    }
+
+    public class Cover {
+        private String small;
+        private String big;
+
+        public Cover() {
+        }
+
+        public String getSmall() {
+            return small;
+        }
+
+        public String getBig() {
+            return big;
+        }
     }
 }

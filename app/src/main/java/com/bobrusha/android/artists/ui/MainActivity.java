@@ -41,17 +41,16 @@ import com.squareup.otto.Subscribe;
  * @author Aleksandra Bobrova
  */
 public class MainActivity extends AppCompatActivity {
-    private static final String TAG = "MainActivity";
     private static final String OPEN_IN_MARKET = "market://details?id=";
     private static final String YA_MUSIC_PACKAGE_NAME = "ru.yandex.music";
     private static final String YA_RADIO_PACKAGE_NAME = "ru.yandex.radio";
     private static final int NOTIFICATION_ID = 1;
 
-    private NavigationView mNavigationView;
-    private DrawerLayout mDrawerLayout;
+    private NavigationView navigationView;
+    private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle drawerToggle;
 
-    private MusicIntentReceiver myReceiver;
+    private MusicIntentReceiver receiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,17 +66,17 @@ public class MainActivity extends AppCompatActivity {
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        mNavigationView = (NavigationView) findViewById(R.id.nvView);
-        setupDrawerContent(mNavigationView);
+        navigationView = (NavigationView) findViewById(R.id.nvView);
+        setupDrawerContent(navigationView);
 
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
-        drawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar,
+        drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,
                 R.string.drawer_open, R.string.drawer_close);
-        mDrawerLayout.addDrawerListener(drawerToggle);
+        drawerLayout.addDrawerListener(drawerToggle);
 
 
-        myReceiver = new MusicIntentReceiver();
+        receiver = new MusicIntentReceiver();
     }
 
     @Override
@@ -92,13 +91,13 @@ public class MainActivity extends AppCompatActivity {
         BusProvider.getInstance().register(this);
 
         IntentFilter filter = new IntentFilter(Intent.ACTION_HEADSET_PLUG);
-        registerReceiver(myReceiver, filter);
+        registerReceiver(receiver, filter);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        unregisterReceiver(myReceiver);
+        unregisterReceiver(receiver);
         BusProvider.getInstance().unregister(this);
     }
 
@@ -135,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void selectDrawerItem(MenuItem menuItem) {
-        Fragment fragment = null;
+        Fragment fragment;
 
         switch (menuItem.getItemId()) {
             case R.id.nav_home:
@@ -148,7 +147,7 @@ public class MainActivity extends AppCompatActivity {
                 fragment = new MainFragment();
         }
 
-        mDrawerLayout.closeDrawers();
+        drawerLayout.closeDrawers();
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.container_for_fragment, fragment).commit();
         menuItem.setChecked(true);
@@ -160,6 +159,21 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void createAction(Context context, NotificationCompat.Builder builder, String packageName,
+                             @DrawableRes int icOpen, @DrawableRes int icDownload, @StringRes int name) {
+        PackageManager manager = context.getPackageManager();
+        Intent intent = manager.getLaunchIntentForPackage(packageName);
+        if (intent != null) {
+            intent.addCategory(Intent.CATEGORY_LAUNCHER);
+            PendingIntent pi = PendingIntent.getActivity(context, 0, intent, 0);
+            builder.addAction(icOpen, getString(name), pi);
+        } else {
+            PendingIntent pi = PendingIntent.getActivity(context, 0, new Intent(
+                    Intent.ACTION_VIEW, Uri.parse(OPEN_IN_MARKET + packageName)), 0);
+            builder.addAction(icDownload, getString(name), pi);
+        }
     }
 
     private class MusicIntentReceiver extends BroadcastReceiver {
@@ -192,21 +206,6 @@ public class MainActivity extends AppCompatActivity {
                         break;
                 }
             }
-        }
-    }
-
-    public void createAction(Context context, NotificationCompat.Builder builder, String packageName,
-                             @DrawableRes int icOpen, @DrawableRes int icDownload, @StringRes int name) {
-        PackageManager manager = context.getPackageManager();
-        Intent intent = manager.getLaunchIntentForPackage(packageName);
-        if (intent != null) {
-            intent.addCategory(Intent.CATEGORY_LAUNCHER);
-            PendingIntent pi = PendingIntent.getActivity(context, 0, intent, 0);
-            builder.addAction(icOpen, getString(name), pi);
-        } else {
-            PendingIntent pi = PendingIntent.getActivity(context, 0, new Intent(
-                    Intent.ACTION_VIEW, Uri.parse(OPEN_IN_MARKET + packageName)), 0);
-            builder.addAction(icDownload, getString(name), pi);
         }
     }
 

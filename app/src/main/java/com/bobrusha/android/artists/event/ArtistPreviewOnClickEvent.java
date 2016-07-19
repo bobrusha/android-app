@@ -9,13 +9,13 @@ import com.bobrusha.android.artists.model.ArtistInfo;
  * @see com.squareup.otto.Bus
  */
 public class ArtistPreviewOnClickEvent {
-    private final ArtistInfo mArtistInfo;
+    private final ArtistInfo artistInfo;
 
     public ArtistPreviewOnClickEvent(ArtistInfo artistInfo) {
-        mArtistInfo = artistInfo;
+        this.artistInfo = artistInfo;
     }
 
     public ArtistInfo getArtistInfo() {
-        return mArtistInfo;
+        return artistInfo;
     }
 }
