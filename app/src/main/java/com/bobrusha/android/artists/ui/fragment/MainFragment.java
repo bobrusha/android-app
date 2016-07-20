@@ -93,16 +93,20 @@ public class MainFragment extends Fragment implements LoaderManager.LoaderCallba
 
         // Show snackBar if no data was loaded
         if (data == null || data.isEmpty()) {
-            if (snackbar == null) {
-                snackbar = Snackbar.make(getActivity().findViewById(R.id.refresh_layout),
-                        R.string.no_data_to_display,
-                        Snackbar.LENGTH_INDEFINITE);
-            }
-            snackbar.show();
             if (newData != null && !newData.isEmpty()) {
                 ((ArtistPreviewAdapter) adapter).setDataset(newData);
+            } else {
+                if (snackbar == null) {
+                    snackbar = Snackbar.make(swipeRefreshLayout,
+                            R.string.no_data_to_display,
+                            Snackbar.LENGTH_INDEFINITE);
+                }
+                snackbar.show();
             }
         } else {
+            if (loader.getId() == Constants.ARTIST_INFO_LOADER_ID) {
+                newData = data;
+            }
             ((ArtistPreviewAdapter) adapter).setDataset(data);
             if (snackbar != null) {
                 snackbar.dismiss();
