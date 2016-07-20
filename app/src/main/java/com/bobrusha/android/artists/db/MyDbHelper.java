@@ -1,15 +1,8 @@
 package com.bobrusha.android.artists.db;
 
-import android.content.ContentValues;
 import android.content.Context;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
-
-import com.bobrusha.android.artists.model.ArtistInfo;
-
-import java.util.List;
 
 /**
  * Created by Aleksandra on 20/07/16.
@@ -39,7 +32,7 @@ public class MyDbHelper extends SQLiteOpenHelper {
 
 
     public MyDbHelper(Context context) {
-        super(context, null, null, DATABASE_VERSION);
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
 
     }
 
@@ -50,43 +43,8 @@ public class MyDbHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-
-    }
-
-    public void putArtist(SQLiteDatabase db, ArtistInfo artist) {
-        ContentValues values = new ContentValues();
-        values.put(Contract.ArtistEntry.COLUMN_NAME_ARTIST_ID, artist.getId());
-        values.put(Contract.ArtistEntry.COLUMN_NAME_ARTIST_NAME, artist.getName());
-        values.put(Contract.ArtistEntry.COLUMN_NAME_GENRES, " ");
-        values.put(Contract.ArtistEntry.COLUMN_NAME_TRACKS, artist.getTracks());
-        values.put(Contract.ArtistEntry.COLUMN_NAME_ALBUMS, artist.getAlbums());
-        values.put(Contract.ArtistEntry.COLUMN_NAME_LINK, artist.getLink());
-        values.put(Contract.ArtistEntry.COLUMN_NAME_DESCRIPTION, artist.getDescription());
-        values.put(Contract.ArtistEntry.COLUMN_NAME_COVER_BIG, artist.getCover().getBig());
-        values.put(Contract.ArtistEntry.COLUMN_NAME_COVER_SMALL, artist.getCover().getSmall());
-
-        String selection = Contract.ArtistEntry.COLUMN_NAME_ARTIST_ID + " LIKE ?";
-        String[] selectionArgs = {String.valueOf(artist.getId())};
-
-        int count = db.update(
-                Contract.ArtistEntry.TABLE_NAME,
-                values,
-                selection,
-                selectionArgs);
-
-        if (count == 0) {
-            db.insert(Contract.ArtistEntry.TABLE_NAME, null, values);
-        }
-        Log.v(this.getClass().getName(), "Updated " + count);
-    }
-
-    public void putArtists(SQLiteDatabase db, List<ArtistInfo> artists) {
-        for (ArtistInfo artist : artists) {
-            putArtist(db, artist);
-        }
-
-        Cursor c = db.query(Contract.ArtistEntry.TABLE_NAME, null, null, null, null, null, null);
-        Log.v(this.getClass().getName(), "In db " + c.getCount());
+        sqLiteDatabase.execSQL(SQL_DELETE_ENTRIES);
+        onCreate(sqLiteDatabase);
     }
 
 

@@ -26,7 +26,7 @@ import com.bobrusha.android.artists.recycler_view.DividerItemDecoration;
 import java.util.List;
 
 public class MainFragment extends Fragment implements LoaderManager.LoaderCallbacks<List<ArtistInfo>> {
-    private List<ArtistInfo> cached;
+    private List<ArtistInfo> newData;
 
     private RecyclerView.Adapter adapter;
     private SwipeRefreshLayout swipeRefreshLayout;
@@ -74,9 +74,9 @@ public class MainFragment extends Fragment implements LoaderManager.LoaderCallba
     public Loader<List<ArtistInfo>> onCreateLoader(int id, Bundle args) {
         switch (id) {
             case Constants.ARTIST_INFO_LOADER_ID:
+                newData = null;
                 return new ArtistInfoLoader(getActivity());
             case Constants.CACHE_LOADER_ID:
-                Log.v("qq", "Init cache loader");
                 return new CacheLoader(getActivity());
         }
         return null;
@@ -86,13 +86,11 @@ public class MainFragment extends Fragment implements LoaderManager.LoaderCallba
     public void onLoadFinished(Loader<List<ArtistInfo>> loader, List<ArtistInfo> data) {
         swipeRefreshLayout.setRefreshing(false);
 
-        if (loader.getId() == Constants.CACHE_LOADER_ID) {
-            cached = data;
-            Log.v("qq", "Cached loader finished");
+        if (loader.getId() == Constants.CACHE_LOADER_ID && newData == null) {
+            ((ArtistPreviewAdapter) adapter).setDataset(data);
             return;
         }
 
-        Log.v("qq", "Network loader finished");
         // Show snackBar if no data was loaded
         if (data == null || data.isEmpty()) {
             if (snackbar == null) {
@@ -101,8 +99,8 @@ public class MainFragment extends Fragment implements LoaderManager.LoaderCallba
                         Snackbar.LENGTH_INDEFINITE);
             }
             snackbar.show();
-            if (cached != null && !cached.isEmpty()) {
-                ((ArtistPreviewAdapter) adapter).setDataset(cached);
+            if (newData != null && !newData.isEmpty()) {
+                ((ArtistPreviewAdapter) adapter).setDataset(newData);
             }
         } else {
             ((ArtistPreviewAdapter) adapter).setDataset(data);
