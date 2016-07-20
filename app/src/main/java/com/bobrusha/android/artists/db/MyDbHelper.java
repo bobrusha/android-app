@@ -65,9 +65,18 @@ public class MyDbHelper extends SQLiteOpenHelper {
         values.put(Contract.ArtistEntry.COLUMN_NAME_COVER_BIG, artist.getCover().getBig());
         values.put(Contract.ArtistEntry.COLUMN_NAME_COVER_SMALL, artist.getCover().getSmall());
 
-        long count = db.insert(
-                Contract.ArtistEntry.TABLE_NAME, null,
-                values);
+        String selection = Contract.ArtistEntry.COLUMN_NAME_ARTIST_ID + " LIKE ?";
+        String[] selectionArgs = {String.valueOf(artist.getId())};
+
+        int count = db.update(
+                Contract.ArtistEntry.TABLE_NAME,
+                values,
+                selection,
+                selectionArgs);
+
+        if (count == 0) {
+            db.insert(Contract.ArtistEntry.TABLE_NAME, null, values);
+        }
         Log.v(this.getClass().getName(), "Updated " + count);
     }
 

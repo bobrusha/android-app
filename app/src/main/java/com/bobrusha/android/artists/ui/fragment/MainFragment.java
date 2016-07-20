@@ -10,11 +10,13 @@ import android.support.v4.content.Loader;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.bobrusha.android.artists.ArtistInfoLoader;
+import com.bobrusha.android.artists.CacheLoader;
 import com.bobrusha.android.artists.Constants;
 import com.bobrusha.android.artists.R;
 import com.bobrusha.android.artists.model.ArtistInfo;
@@ -24,6 +26,8 @@ import com.bobrusha.android.artists.recycler_view.DividerItemDecoration;
 import java.util.List;
 
 public class MainFragment extends Fragment implements LoaderManager.LoaderCallbacks<List<ArtistInfo>> {
+    private List<ArtistInfo> cached;
+
     private RecyclerView.Adapter adapter;
     private SwipeRefreshLayout swipeRefreshLayout;
     private Snackbar snackbar;
@@ -48,6 +52,9 @@ public class MainFragment extends Fragment implements LoaderManager.LoaderCallba
             public void onRefresh() {
                 getActivity().getSupportLoaderManager()
                         .restartLoader(Constants.ARTIST_INFO_LOADER_ID, null, MainFragment.this);
+                getActivity().getSupportLoaderManager()
+                        .restartLoader(Constants.CACHE_LOADER_ID, null, MainFragment.this);
+
                 swipeRefreshLayout.setRefreshing(false);
             }
         });
@@ -60,31 +67,50 @@ public class MainFragment extends Fragment implements LoaderManager.LoaderCallba
         super.onActivityCreated(savedInstanceState);
 
         getLoaderManager().initLoader(Constants.ARTIST_INFO_LOADER_ID, null, this);
+        getLoaderManager().initLoader(Constants.CACHE_LOADER_ID, null, this);
     }
 
     @Override
     public Loader<List<ArtistInfo>> onCreateLoader(int id, Bundle args) {
-        return new ArtistInfoLoader(getActivity());
+        switch (id) {
+            case Constants.ARTIST_INFO_LOADER_ID:
+                return new ArtistInfoLoader(getActivity());
+            case Constants.CACHE_LOADER_ID:
+                Log.v("qq", "Init cache loader");
+                return new CacheLoader(getActivity());
+        }
+        return null;
     }
 
     @Override
     public void onLoadFinished(Loader<List<ArtistInfo>> loader, List<ArtistInfo> data) {
-        ((ArtistPreviewAdapter) adapter).setDataset(data);
         swipeRefreshLayout.setRefreshing(false);
 
+        if (loader.getId() == Constants.CACHE_LOADER_ID) {
+            cached = data;
+            Log.v("qq", "Cached loader finished");
+            return;
+        }
+
+        Log.v("qq", "Network loader finished");
         // Show snackBar if no data was loaded
-        if (data == null) {
+        if (data == null || data.isEmpty()) {
             if (snackbar == null) {
                 snackbar = Snackbar.make(getActivity().findViewById(R.id.refresh_layout),
                         R.string.no_data_to_display,
                         Snackbar.LENGTH_INDEFINITE);
             }
             snackbar.show();
+            if (cached != null && !cached.isEmpty()) {
+                ((ArtistPreviewAdapter) adapter).setDataset(cached);
+            }
         } else {
+            ((ArtistPreviewAdapter) adapter).setDataset(data);
             if (snackbar != null) {
                 snackbar.dismiss();
             }
         }
+
     }
 
     @Override

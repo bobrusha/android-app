@@ -110,4 +110,35 @@ public class ArtistInfo implements Parcelable {
         return tracks;
     }
 
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setGenres(List<String> genres) {
+        this.genres = genres;
+    }
+
+    public void setTracks(long tracks) {
+        this.tracks = tracks;
+    }
+
+    public void setAlbums(long albums) {
+        this.albums = albums;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setCover(Cover cover) {
+        this.cover = cover;
+    }
 }

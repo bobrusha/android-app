@@ -35,8 +35,10 @@ public class ArtistPreviewViewHolder extends RecyclerView.ViewHolder {
     public void bind(final ArtistInfo artistInfo) {
         ArtistNameView.setText(artistInfo.getName());
 
-        String genres = TextUtils.join(", ", artistInfo.getGenres());
-        genreTextView.setText(genres);
+        if (artistInfo.getGenres() != null) {
+            String genres = TextUtils.join(", ", artistInfo.getGenres());
+            genreTextView.setText(genres);
+        }
 
         String pattern = context.getString(R.string.amount_of_albums_and_tracks);
         albumsTextView.setText(String.format(pattern, artistInfo.getAlbums(), artistInfo.getTracks()));
