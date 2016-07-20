@@ -43,8 +43,8 @@ public class ArtistInfo implements Parcelable {
         link = in.readString();
         description = in.readString();
         cover = new Cover();
-        cover.big = in.readString();
-        cover.small = in.readString();
+        cover.setBig(in.readString());
+        cover.setSmall(in.readString());
     }
 
     @Override
@@ -61,8 +61,8 @@ public class ArtistInfo implements Parcelable {
         dest.writeLong(albums);
         dest.writeString(link);
         dest.writeString(description);
-        dest.writeString(cover.big);
-        dest.writeString(cover.small);
+        dest.writeString(cover.getBig());
+        dest.writeString(cover.getSmall());
     }
 
     @Override
@@ -76,6 +76,14 @@ public class ArtistInfo implements Parcelable {
                 ", description='" + description + '\'' +
                 ", cover=" + cover +
                 '}';
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public String getLink() {
+        return link;
     }
 
     public String getName() {
@@ -102,19 +110,4 @@ public class ArtistInfo implements Parcelable {
         return tracks;
     }
 
-    public class Cover {
-        private String small;
-        private String big;
-
-        public Cover() {
-        }
-
-        public String getSmall() {
-            return small;
-        }
-
-        public String getBig() {
-            return big;
-        }
-    }
 }

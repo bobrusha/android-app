@@ -1,6 +1,7 @@
 package com.bobrusha.android.artists;
 
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v4.content.AsyncTaskLoader;
 
 import com.bobrusha.android.artists.model.ArtistInfo;
@@ -56,6 +57,10 @@ public class ArtistInfoLoader extends AsyncTaskLoader<List<ArtistInfo>> {
             ResponseBody responseBody = response.body();
             List<ArtistInfo> artistInfoList = gson.fromJson(responseBody.charStream(), artists.getType());
             responseBody.close();
+
+            SQLiteDatabase db = MyApplication.getDbHelper().getWritableDatabase();
+            MyApplication.getDbHelper().putArtists(db, artistInfoList)
+            ;
             return artistInfoList;
         } catch (IOException e) {
             e.printStackTrace();
