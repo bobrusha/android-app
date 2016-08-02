@@ -25,15 +25,13 @@ import android.support.v7.app.NotificationCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
-import com.bobrusha.android.artists.BusProvider;
 import com.bobrusha.android.artists.Constants;
 import com.bobrusha.android.artists.R;
-import com.bobrusha.android.artists.event.ArtistPreviewOnClickEvent;
+import com.bobrusha.android.artists.model.ArtistInfo;
 import com.bobrusha.android.artists.ui.fragment.AboutFragment;
 import com.bobrusha.android.artists.ui.fragment.ArtistDetailFragment;
 import com.bobrusha.android.artists.ui.fragment.MainFragment;
 import com.bobrusha.android.artists.ui.fragment.SettingsFragment;
-import com.squareup.otto.Subscribe;
 
 
 /**
@@ -89,7 +87,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        BusProvider.getInstance().register(this);
 
         IntentFilter filter = new IntentFilter(Intent.ACTION_HEADSET_PLUG);
         registerReceiver(receiver, filter);
@@ -99,22 +96,18 @@ public class MainActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         unregisterReceiver(receiver);
-        BusProvider.getInstance().unregister(this);
     }
 
 
     /**
      * Method that calling then user chose musician.
      *
-     * @param event – event for method invocation using Bus.
+     * @param artistInfo - object with information for detailed fragment.
      */
-
-
-    @Subscribe
-    public void onArtistSelected(ArtistPreviewOnClickEvent event) {
+    public void onArtistSelected(ArtistInfo artistInfo) {
         ArtistDetailFragment fragment = new ArtistDetailFragment();
         Bundle args = new Bundle();
-        args.putParcelable(Constants.EXTRA_ARTIST, event.getArtistInfo());
+        args.putParcelable(Constants.EXTRA_ARTIST, artistInfo);
         fragment.setArguments(args);
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
