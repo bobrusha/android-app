@@ -33,6 +33,9 @@ import com.bobrusha.android.artists.ui.fragment.ArtistDetailFragment;
 import com.bobrusha.android.artists.ui.fragment.MainFragment;
 import com.bobrusha.android.artists.ui.fragment.SettingsFragment;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 
 /**
  * Main Activity for managing fragments.
@@ -45,8 +48,15 @@ public class MainActivity extends AppCompatActivity {
     private static final String YA_RADIO_PACKAGE_NAME = "ru.yandex.radio";
     private static final int NOTIFICATION_ID = 1;
 
-    private NavigationView navigationView;
-    private DrawerLayout drawerLayout;
+    @BindView(R.id.nvView)
+    NavigationView navigationView;
+
+    @BindView(R.id.drawer_layout)
+    DrawerLayout drawerLayout;
+
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+
     private ActionBarDrawerToggle drawerToggle;
 
     private MusicIntentReceiver receiver;
@@ -62,18 +72,13 @@ public class MainActivity extends AppCompatActivity {
             transaction.commit();
         }
 
-        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        ButterKnife.bind(this);
         setSupportActionBar(toolbar);
-
-        navigationView = (NavigationView) findViewById(R.id.nvView);
         setupDrawerContent(navigationView);
-
-        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
         drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,
                 R.string.drawer_open, R.string.drawer_close);
         drawerLayout.addDrawerListener(drawerToggle);
-
 
         receiver = new MusicIntentReceiver();
     }

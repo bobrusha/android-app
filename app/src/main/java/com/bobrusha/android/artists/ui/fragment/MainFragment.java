@@ -10,7 +10,6 @@ import android.support.v4.content.Loader;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,19 +24,27 @@ import com.bobrusha.android.artists.recycler_view.DividerItemDecoration;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class MainFragment extends Fragment implements LoaderManager.LoaderCallbacks<List<ArtistInfo>> {
     private List<ArtistInfo> newData;
 
+    @BindView(R.id.recycler_view_artists)
+    RecyclerView recyclerView;
+
+    @BindView(R.id.refresh_layout)
+    SwipeRefreshLayout swipeRefreshLayout;
+
     private RecyclerView.Adapter adapter;
-    private SwipeRefreshLayout swipeRefreshLayout;
     private Snackbar snackbar;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_main, container, false);
+        View v = inflater.inflate(R.layout.fragment_main, container, false);
+        ButterKnife.bind(this, v);
 
-        RecyclerView recyclerView = (RecyclerView) root.findViewById(R.id.recycler_view_artists);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         adapter = new ArtistPreviewAdapter();
@@ -45,8 +52,6 @@ public class MainFragment extends Fragment implements LoaderManager.LoaderCallba
 
         recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), R.drawable.divider));
 
-
-        swipeRefreshLayout = (SwipeRefreshLayout) root.findViewById(R.id.refresh_layout);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -59,7 +64,7 @@ public class MainFragment extends Fragment implements LoaderManager.LoaderCallba
             }
         });
 
-        return root;
+        return v;
     }
 
     @Override
