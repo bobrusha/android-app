@@ -6,8 +6,8 @@ import android.support.v4.content.AsyncTaskLoader;
 
 import com.bobrusha.android.artists.db.DBManager;
 import com.bobrusha.android.artists.model.ArtistInfo;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
 import java.util.List;
@@ -25,10 +25,6 @@ import okhttp3.ResponseBody;
 public class ArtistInfoLoader extends AsyncTaskLoader<List<ArtistInfo>> {
     private static final String URL = "http://download.cdn.yandex.net/mobilization-2016/artists.json";
     private OkHttpClient client = new OkHttpClient();
-    private Gson gson = new Gson();
-
-    private TypeToken<List<ArtistInfo>> artists = new TypeToken<List<ArtistInfo>>() {
-    };
 
     public ArtistInfoLoader(Context context) {
         super(context);
@@ -56,7 +52,11 @@ public class ArtistInfoLoader extends AsyncTaskLoader<List<ArtistInfo>> {
         try {
             response = client.newCall(request).execute();
             ResponseBody responseBody = response.body();
-            List<ArtistInfo> artistInfoList = gson.fromJson(responseBody.charStream(), artists.getType());
+
+            ObjectMapper objectMapper = new ObjectMapper();
+            List<ArtistInfo> artistInfoList = objectMapper.readValue(responseBody.charStream(), new TypeReference<List<ArtistInfo>>() {
+            });
+
             responseBody.close();
 
             SQLiteDatabase db = MyApplication.getDbHelper().getWritableDatabase();

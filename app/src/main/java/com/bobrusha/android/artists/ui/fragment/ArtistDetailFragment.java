@@ -54,7 +54,7 @@ public class ArtistDetailFragment extends Fragment {
 
         imageView = (ImageView) v.findViewById(R.id.artist_detail_big_img);
         Picasso.with(imageView.getContext())
-                .load(artist.getCover().getBig())
+                .load(artist.cover().getBig())
                 .into(imageView, new Callback() {
                     @Override
                     public void onSuccess() {
@@ -71,16 +71,16 @@ public class ArtistDetailFragment extends Fragment {
                 });
 
         genre = (TextView) v.findViewById(R.id.artist_detail_genre_text);
-        genre.setText(TextUtils.join(", ", artist.getGenres()));
+        genre.setText(TextUtils.join(", ", artist.genres()));
 
         albumsAndTracks = (TextView) v.findViewById(R.id.artist_detail_albums_and_tracks);
         String pattern = getString(R.string.artist_detail_albums_and_tracks);
         albumsAndTracks.setText(
-                String.format(pattern, artist.getAlbums(), artist.getTracks())
+                String.format(pattern, artist.albums(), artist.tracks())
         );
 
         bio = (TextView) v.findViewById(R.id.artist_detail_biography_text);
-        bio.setText(artist.getDescription());
+        bio.setText(artist.description());
 
         return v;
     }

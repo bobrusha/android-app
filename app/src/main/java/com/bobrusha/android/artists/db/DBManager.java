@@ -19,18 +19,18 @@ public class DBManager {
 
     public static void putArtist(SQLiteDatabase db, ArtistInfo artist) {
         ContentValues values = new ContentValues();
-        values.put(Contract.ArtistEntry.COLUMN_NAME_ARTIST_ID, artist.getId());
-        values.put(Contract.ArtistEntry.COLUMN_NAME_ARTIST_NAME, artist.getName());
-        values.put(Contract.ArtistEntry.COLUMN_NAME_GENRES, TextUtils.join(", ", artist.getGenres()));
-        values.put(Contract.ArtistEntry.COLUMN_NAME_TRACKS, artist.getTracks());
-        values.put(Contract.ArtistEntry.COLUMN_NAME_ALBUMS, artist.getAlbums());
-        values.put(Contract.ArtistEntry.COLUMN_NAME_LINK, artist.getLink());
-        values.put(Contract.ArtistEntry.COLUMN_NAME_DESCRIPTION, artist.getDescription());
-        values.put(Contract.ArtistEntry.COLUMN_NAME_COVER_BIG, artist.getCover().getBig());
-        values.put(Contract.ArtistEntry.COLUMN_NAME_COVER_SMALL, artist.getCover().getSmall());
+        values.put(Contract.ArtistEntry.COLUMN_NAME_ARTIST_ID, artist.id());
+        values.put(Contract.ArtistEntry.COLUMN_NAME_ARTIST_NAME, artist.name());
+        values.put(Contract.ArtistEntry.COLUMN_NAME_GENRES, TextUtils.join(", ", artist.genres()));
+        values.put(Contract.ArtistEntry.COLUMN_NAME_TRACKS, artist.tracks());
+        values.put(Contract.ArtistEntry.COLUMN_NAME_ALBUMS, artist.albums());
+        values.put(Contract.ArtistEntry.COLUMN_NAME_LINK, artist.link());
+        values.put(Contract.ArtistEntry.COLUMN_NAME_DESCRIPTION, artist.description());
+        values.put(Contract.ArtistEntry.COLUMN_NAME_COVER_BIG, artist.cover().getBig());
+        values.put(Contract.ArtistEntry.COLUMN_NAME_COVER_SMALL, artist.cover().getSmall());
 
         String selection = Contract.ArtistEntry.COLUMN_NAME_ARTIST_ID + " LIKE ?";
-        String[] selectionArgs = {String.valueOf(artist.getId())};
+        String[] selectionArgs = {String.valueOf(artist.id())};
 
         int count = db.update(
                 Contract.ArtistEntry.TABLE_NAME,
@@ -44,7 +44,6 @@ public class DBManager {
     }
 
 
-
     public static void putArtists(SQLiteDatabase db, List<ArtistInfo> artists) {
         for (ArtistInfo artist : artists) {
             putArtist(db, artist);
@@ -55,20 +54,22 @@ public class DBManager {
 
 
     public static ArtistInfo getArtistFromCursor(Cursor c) {
-        ArtistInfo artistInfo = new ArtistInfo();
-        artistInfo.setId(c.getLong(c.getColumnIndex(Contract.ArtistEntry.COLUMN_NAME_ARTIST_ID)));
-        artistInfo.setName(c.getString(c.getColumnIndex(Contract.ArtistEntry.COLUMN_NAME_ARTIST_NAME)));
-        artistInfo.setAlbums(c.getLong(c.getColumnIndex(Contract.ArtistEntry.COLUMN_NAME_ALBUMS)));
-        artistInfo.setDescription(c.getString(c.getColumnIndex(Contract.ArtistEntry.COLUMN_NAME_DESCRIPTION)));
         String[] genres = c.getString(c.getColumnIndex(Contract.ArtistEntry.COLUMN_NAME_GENRES)).split(", ", -1);
-        artistInfo.setGenres(Arrays.asList(genres));
-        artistInfo.setTracks(c.getLong(c.getColumnIndex(Contract.ArtistEntry.COLUMN_NAME_TRACKS)));
-        artistInfo.setLink(c.getString(c.getColumnIndex(Contract.ArtistEntry.COLUMN_NAME_LINK)));
 
         Cover cover = new Cover();
         cover.setSmall(c.getString(c.getColumnIndex(Contract.ArtistEntry.COLUMN_NAME_COVER_SMALL)));
         cover.setBig(c.getString(c.getColumnIndex(Contract.ArtistEntry.COLUMN_NAME_COVER_BIG)));
-        artistInfo.setCover(cover);
+
+        ArtistInfo artistInfo = ArtistInfo.builder()
+                .id(c.getLong(c.getColumnIndex(Contract.ArtistEntry.COLUMN_NAME_ARTIST_ID)))
+                .name(c.getString(c.getColumnIndex(Contract.ArtistEntry.COLUMN_NAME_ARTIST_NAME)))
+                .genres(Arrays.asList(genres))
+                .tracks(c.getLong(c.getColumnIndex(Contract.ArtistEntry.COLUMN_NAME_TRACKS)))
+                .albums(c.getLong(c.getColumnIndex(Contract.ArtistEntry.COLUMN_NAME_ALBUMS)))
+                .link(c.getString(c.getColumnIndex(Contract.ArtistEntry.COLUMN_NAME_LINK)))
+                .description(c.getString(c.getColumnIndex(Contract.ArtistEntry.COLUMN_NAME_DESCRIPTION)))
+                .cover(cover)
+                .build();
 
         return artistInfo;
     }

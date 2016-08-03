@@ -35,18 +35,18 @@ public class ArtistPreviewViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void bind(final ArtistInfo artistInfo) {
-        artistNameView.setText(artistInfo.getName());
+        artistNameView.setText(artistInfo.name());
 
-        if (artistInfo.getGenres() != null) {
-            String genres = TextUtils.join(", ", artistInfo.getGenres());
+        if (artistInfo.genres() != null) {
+            String genres = TextUtils.join(", ", artistInfo.genres());
             genreTextView.setText(genres);
         }
 
         String pattern = artistNameView.getContext().getString(R.string.amount_of_albums_and_tracks);
-        albumsTextView.setText(String.format(pattern, artistInfo.getAlbums(), artistInfo.getTracks()));
+        albumsTextView.setText(String.format(pattern, artistInfo.albums(), artistInfo.tracks()));
 
         Picasso.with(coverImageView.getContext())
-                .load(artistInfo.getCover().getSmall())
+                .load(artistInfo.cover().getSmall())
                 .into(coverImageView);
     }
 }
