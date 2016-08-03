@@ -1,11 +1,13 @@
 package com.bobrusha.android.artists;
 
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v4.content.AsyncTaskLoader;
 
+import com.bobrusha.android.artists.db.DBManager;
 import com.bobrusha.android.artists.model.ArtistInfo;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
 import java.util.List;
@@ -21,12 +23,8 @@ import okhttp3.ResponseBody;
  * @author Aleksandra Bobrova
  */
 public class ArtistInfoLoader extends AsyncTaskLoader<List<ArtistInfo>> {
-    private static final String URL = "http://cache-default04f.cdn.yandex.net/download.cdn.yandex.net/mobilization-2016/artists.json";
+    private static final String URL = "http://download.cdn.yandex.net/mobilization-2016/artists.json";
     private OkHttpClient client = new OkHttpClient();
-    private Gson mGson = new Gson();
-
-    private TypeToken<List<ArtistInfo>> artists = new TypeToken<List<ArtistInfo>>() {
-    };
 
     public ArtistInfoLoader(Context context) {
         super(context);
@@ -54,8 +52,15 @@ public class ArtistInfoLoader extends AsyncTaskLoader<List<ArtistInfo>> {
         try {
             response = client.newCall(request).execute();
             ResponseBody responseBody = response.body();
-            List<ArtistInfo> artistInfoList = mGson.fromJson(responseBody.charStream(), artists.getType());
+
+            ObjectMapper objectMapper = new ObjectMapper();
+            List<ArtistInfo> artistInfoList = objectMapper.readValue(responseBody.charStream(), new TypeReference<List<ArtistInfo>>() {
+            });
+
             responseBody.close();
+
+            SQLiteDatabase db = MyApplication.getDbHelper().getWritableDatabase();
+            DBManager.putArtists(db, artistInfoList);
             return artistInfoList;
         } catch (IOException e) {
             e.printStackTrace();

@@ -12,4 +12,27 @@
     <string name="artist_detail_fail_to_load_image"> Не удалось загрузить изображение</string>
 
     <string name="image_description">Изображение </string>
+
+
+    <string name="nav_artist_option">Исполнители</string>
+    <string name="nav_about_program_option">О программе</string>
+    <string name="nav_settings">Настройки</string>
+
+
+    <string name="about_author">Автор приложения: Боброва Александра</string>
+    <string name="write_to_devs">Написать разработчикам</string>
+
+    <!-- Navigation Drawer -->
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+
+    <string name="send_email_chooser">Отправить сообщение</string>
+    <string name="no_email_client">Для отправки сообщения необходимо установить почтовый клиент.</string>
+
+    <string name="notification_title">Наушники подключены</string>
+    <string name="notification_text">Выберите приложение для прослушивания музыки</string>
+    <string name="open_ya_music">Яндекс.Музыка </string>
+    <string name="open_ya_radio">Яндекс.Радио</string>
+    <string name="settings_turn_off_notification">Отключить нотификацию</string>
+
 </resources>

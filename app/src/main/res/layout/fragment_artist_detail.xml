@@ -1,18 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@android:color/white">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
     <LinearLayout
         android:id="@+id/linear_layout"
         xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        tools:context=".ArtistDetailActivity">
+        android:orientation="vertical">
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -30,16 +26,17 @@
                 android:id="@+id/artist_detail_big_img"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:contentDescription="@string/image_description"
                 android:scaleType="centerCrop"
-                android:visibility="invisible"
-                android:contentDescription="@string/image_description"/>
+                android:visibility="invisible"/>
+
             <TextView
+                android:id="@+id/artist_detail_no_image"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id ="@+id/artist_detail_no_image"
                 android:gravity="center"
-                android:visibility="invisible"
-                android:text="@string/artist_detail_fail_to_load_image"/>
+                android:text="@string/artist_detail_fail_to_load_image"
+                android:visibility="invisible"/>
         </FrameLayout>
 
         <TextView

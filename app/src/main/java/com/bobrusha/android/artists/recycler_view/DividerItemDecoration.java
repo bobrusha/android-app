@@ -14,10 +14,10 @@ import android.view.View;
  * @author Aleksandra Bobrova
  */
 public class DividerItemDecoration extends RecyclerView.ItemDecoration {
-    private final Drawable mDivider;
+    private final Drawable divider;
 
     public DividerItemDecoration(Context context, int dividerId) {
-        mDivider = ContextCompat.getDrawable(context, dividerId);
+        divider = ContextCompat.getDrawable(context, dividerId);
     }
 
     @Override
@@ -28,7 +28,7 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
             return;
         }
 
-        outRect.top = mDivider.getIntrinsicHeight();
+        outRect.top = divider.getIntrinsicHeight();
     }
 
     @Override
@@ -42,10 +42,10 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
             RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) child.getLayoutParams();
 
             int dividerTop = child.getBottom() + params.bottomMargin;
-            int dividerBottom = dividerTop + mDivider.getIntrinsicHeight();
+            int dividerBottom = dividerTop + divider.getIntrinsicHeight();
 
-            mDivider.setBounds(dividerLeft, dividerTop, dividerRight, dividerBottom);
-            mDivider.draw(canvas);
+            divider.setBounds(dividerLeft, dividerTop, dividerRight, dividerBottom);
+            divider.draw(canvas);
         }
     }
 }

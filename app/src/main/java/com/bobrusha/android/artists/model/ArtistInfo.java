@@ -1,7 +1,13 @@
 package com.bobrusha.android.artists.model;
 
-import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.Nullable;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+import com.google.auto.value.AutoValue;
 
 import java.util.List;
 
@@ -10,113 +16,89 @@ import java.util.List;
  *
  * @author Aleksandra Bobrova
  */
-public class ArtistInfo implements Parcelable {
-    private long id;
-    private String name;
-    private List<String> genres;
-    private long tracks;
-    private long albums;
-    private String link;
-    private String description;
-    private Cover cover;
+@AutoValue
+@JsonDeserialize(builder = AutoValue_ArtistInfo.Builder.class)
+public abstract class ArtistInfo implements Parcelable {
 
-    public ArtistInfo() {
+    public static Builder builder() {
+        return new AutoValue_ArtistInfo.Builder();
     }
 
-    protected ArtistInfo(Parcel in) {
-        id = in.readLong();
-        name = in.readString();
-        genres = in.createStringArrayList();
-        tracks = in.readLong();
-        albums = in.readLong();
-        link = in.readString();
-        description = in.readString();
-        cover = new Cover();
-        cover.big = in.readString();
-        cover.small = in.readString();
+    public static ArtistInfo create(@JsonProperty("id") long id,
+                                    @JsonProperty("name") String name,
+                                    @JsonProperty("genres") List<String> genres,
+                                    @JsonProperty("tracks") long tracks,
+                                    @JsonProperty("albums") long albums,
+                                    @JsonProperty("link") @Nullable String link,
+                                    @JsonProperty("description") String description,
+                                    @JsonProperty("cover") Cover cover) {
+        return builder().id(id)
+                .name(name)
+                .genres(genres)
+                .tracks(tracks)
+                .albums(albums)
+                .link(link)
+                .description(description)
+                .cover(cover)
+                .build();
+
     }
 
-    public static final Creator<ArtistInfo> CREATOR = new Creator<ArtistInfo>() {
-        @Override
-        public ArtistInfo createFromParcel(Parcel in) {
-            return new ArtistInfo(in);
-        }
+    // Properties
+    @JsonProperty("id")
+    public abstract long id();
 
-        @Override
-        public ArtistInfo[] newArray(int size) {
-            return new ArtistInfo[size];
-        }
-    };
+    @JsonProperty("name")
+    public abstract String name();
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
+    @JsonProperty("genres")
+    public abstract List<String> genres();
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeLong(id);
-        dest.writeString(name);
-        dest.writeStringList(genres);
-        dest.writeLong(tracks);
-        dest.writeLong(albums);
-        dest.writeString(link);
-        dest.writeString(description);
-        dest.writeString(cover.big);
-        dest.writeString(cover.small);
-    }
+    @JsonProperty("tracks")
+    public abstract long tracks();
 
-    public class Cover {
-        private String small;
-        private String big;
+    @JsonProperty("albums")
+    public abstract long albums();
 
-        public Cover() {
-        }
+    @JsonProperty("link")
+    @Nullable
+    public abstract String link();
 
-        public String getSmall() {
-            return small;
-        }
+    @JsonProperty("description")
+    public abstract String description();
 
-        public String getBig() {
-            return big;
-        }
-    }
+    @JsonProperty("cover")
+    public abstract Cover cover();
 
 
-    @Override
-    public String toString() {
-        return "ArtistInfo{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", genres=" + genres +
-                ", albums=" + albums +
-                ", link='" + link + '\'' +
-                ", description='" + description + '\'' +
-                ", cover=" + cover +
-                '}';
-    }
+    @AutoValue.Builder
+    @JsonPOJOBuilder(withPrefix = "")
+    public static abstract class Builder {
+        @JsonProperty("id")
+        public abstract Builder id(long id);
 
-    public String getName() {
-        return name;
-    }
+        @JsonProperty("name")
+        public abstract Builder name(String name);
 
-    public List<String> getGenres() {
-        return genres;
-    }
+        @JsonProperty("genres")
+        public abstract Builder genres(List<String> genres);
 
-    public Cover getCover() {
-        return cover;
-    }
+        @JsonProperty("tracks")
+        public abstract Builder tracks(long tracks);
 
-    public long getAlbums() {
-        return albums;
-    }
+        @JsonProperty("albums")
+        public abstract Builder albums(long albums);
 
-    public String getDescription() {
-        return description;
-    }
+        @JsonProperty("link")
+        public abstract Builder link(String link);
 
-    public long getTracks() {
-        return tracks;
+        @JsonProperty("description")
+        public abstract Builder description(String description);
+
+        @JsonProperty("cover")
+        public abstract Builder cover(Cover cover);
+
+        @JsonCreator
+        public abstract ArtistInfo build();
     }
 }
