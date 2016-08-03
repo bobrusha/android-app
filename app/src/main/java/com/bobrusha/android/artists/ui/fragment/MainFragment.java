@@ -36,7 +36,7 @@ public class MainFragment extends Fragment implements LoaderManager.LoaderCallba
     @BindView(R.id.refresh_layout)
     SwipeRefreshLayout swipeRefreshLayout;
 
-    private RecyclerView.Adapter adapter;
+    private ArtistPreviewAdapter adapter;
     private Snackbar snackbar;
 
     @Nullable
@@ -92,14 +92,14 @@ public class MainFragment extends Fragment implements LoaderManager.LoaderCallba
         swipeRefreshLayout.setRefreshing(false);
 
         if (loader.getId() == Constants.CACHE_LOADER_ID && newData == null) {
-            ((ArtistPreviewAdapter) adapter).setDataset(data);
+            adapter.setDataset(data);
             return;
         }
 
         // Show snackBar if no data was loaded
         if (data == null || data.isEmpty()) {
             if (newData != null && !newData.isEmpty()) {
-                ((ArtistPreviewAdapter) adapter).setDataset(newData);
+                adapter.setDataset(newData);
             } else {
                 if (snackbar == null) {
                     snackbar = Snackbar.make(swipeRefreshLayout,
@@ -112,7 +112,7 @@ public class MainFragment extends Fragment implements LoaderManager.LoaderCallba
             if (loader.getId() == Constants.ARTIST_INFO_LOADER_ID) {
                 newData = data;
             }
-            ((ArtistPreviewAdapter) adapter).setDataset(data);
+            adapter.setDataset(data);
             if (snackbar != null) {
                 snackbar.dismiss();
             }
