@@ -23,6 +23,12 @@ import butterknife.OnClick;
 public class AboutFragment extends Fragment {
     private static final String EMAIL_TO = "bobrova.aleksand@gmail.com";
     private static final String EMAIL_SUBJECT = "Artists app";
+    private static final String EMAIL_TYPE = "message/rfc822";
+
+    private static final Intent intent = new Intent(Intent.ACTION_SEND)
+            .setType(EMAIL_TYPE)
+            .putExtra(Intent.EXTRA_EMAIL, new String[]{EMAIL_TO})
+            .putExtra(Intent.EXTRA_SUBJECT, EMAIL_SUBJECT);
 
     @BindView(R.id.btn_send_email_to_devs)
     Button sendToButton;
@@ -38,11 +44,6 @@ public class AboutFragment extends Fragment {
 
     @OnClick(R.id.btn_send_email_to_devs)
     public void onSendEmailClick() {
-        Intent intent = new Intent(Intent.ACTION_SEND);
-        intent.setType("message/rfc822");
-        intent.putExtra(Intent.EXTRA_EMAIL, new String[]{EMAIL_TO});
-        intent.putExtra(Intent.EXTRA_SUBJECT, EMAIL_SUBJECT);
-
         try {
             startActivity(Intent.createChooser(intent, getString(R.string.send_email_chooser)));
         } catch (ActivityNotFoundException ex) {
